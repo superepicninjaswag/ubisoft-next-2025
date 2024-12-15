@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="GameTest.cpp" />
+    <ClCompile Include="CartesianConquest.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="App\app.cpp">
       <Filter>API</Filter>
@@ -54,6 +54,9 @@
     <ClInclude Include="miniaudio\miniaudio.h">
       <Filter>API\third_party\miniaudio</Filter>
     </ClInclude>
+    <ClInclude Include="ECS.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -67,6 +70,9 @@
     </Filter>
     <Filter Include="API\third_party\stb_image">
       <UniqueIdentifier>{61cfc19b-c57e-4021-b530-bac172fcba86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS">
+      <UniqueIdentifier>{e7eaa5ba-7431-49b3-b995-46dbe8a0c4f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
