@@ -10,14 +10,14 @@
 //------------------------------------------------------------------------
 #include "app\app.h"
 //------------------------------------------------------------------------
-
+#include "ECS.h"
+#include "ComponentPool.h"
 
 
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
 //------------------------------------------------------------------------
-void Init()
-{
+void Init() {
 
 }
 
@@ -25,24 +25,22 @@ void Init()
 // Update your simulation here. deltaTime is the elapsed time since the last update in ms.
 // This will be called at no greater frequency than the value of APP_MAX_FRAME_RATE
 //------------------------------------------------------------------------
-void Update( const float deltaTime )
-{
-
+void Update( const float deltaTime ) {
+	float temp = deltaTime + 2;
+	temp++;
 }
 
 //------------------------------------------------------------------------
 // Add your display calls here (DrawLine,Print, DrawSprite.) 
 // See App.h 
 //------------------------------------------------------------------------
-void Render()
-{	
+void Render() {	
 
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.
 // Just before the app exits.
 //------------------------------------------------------------------------
-void Shutdown()
-{	
+void Shutdown() {
 
 }

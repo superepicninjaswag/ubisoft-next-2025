@@ -23,12 +23,13 @@ int WINDOW_HEIGHT = APP_INIT_WINDOW_HEIGHT;
 HWND MAIN_WINDOW_HANDLE = nullptr;
 
 //---------------------------------------------------------------------------------
-static const double UPDATE_MAX = ((1.0 / APP_MAX_FRAME_RATE)*1000.0);
+static const double FIXED_TIME_STEP = ((1.0 / APP_MAX_FRAME_RATE)*1000.0);
 //---------------------------------------------------------------------------------
 // Internal globals for timing.
 double gPCFreq = 0.0;
 __int64 gCounterStart = 0;
-double gLastTime;
+double lastTime;
+double accumulatedTime = 0.0;
 
 //---------------------------------------------------------------------------------
 // User implemented methods.
@@ -94,7 +95,7 @@ bool		gRenderUpdateTimes = APP_RENDER_UPDATE_TIMES;
 void InitGL()
 {
 	StartCounter();
-	gLastTime = GetCounter();
+	lastTime = GetCounter();
 	// Set "clearing" or background color
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black and opaque
 }
@@ -123,23 +124,22 @@ void Display()
 // Update from glut. Called when no more event handling.
 //---------------------------------------------------------------------------------
 void Idle()
-{	
-	static double prevTime = GetCounter();
-	double tick = GetCounter() - prevTime;
+{
 	double currentTime = GetCounter();
-	double deltaTime = currentTime - gLastTime;
+	accumulatedTime += currentTime - lastTime;
+	lastTime = currentTime;
 	// Update.
-	if (deltaTime > UPDATE_MAX)
-	{	
+	if (accumulatedTime >= FIXED_TIME_STEP)
+	{
 		gUpdateDeltaTime.Stop();
+		accumulatedTime -= FIXED_TIME_STEP;
 		glutPostRedisplay(); //every time you are done
 		CSimpleControllers::GetInstance().Update();
 
 		gUserUpdateProfiler.Start();
-		Update((float)deltaTime);				// Call user defined update.
+		Update((float)FIXED_TIME_STEP);				// Call user defined update.
 		gUserUpdateProfiler.Stop();
-		
-		gLastTime = currentTime;		
+	
 		RECT tileClientArea;
 		if (GetClientRect( MAIN_WINDOW_HANDLE, &tileClientArea))
 		{

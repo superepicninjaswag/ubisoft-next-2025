@@ -24,6 +24,15 @@
     <ClCompile Include="miniaudio\miniaudio.cpp">
       <Filter>API\third_party\miniaudio</Filter>
     </ClCompile>
+    <ClCompile Include="ECS.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityID.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentPool.test.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -57,6 +66,12 @@
     <ClInclude Include="ECS.h">
       <Filter>ECS</Filter>
     </ClInclude>
+    <ClInclude Include="EntityID.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentPool.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -71,8 +86,11 @@
     <Filter Include="API\third_party\stb_image">
       <UniqueIdentifier>{61cfc19b-c57e-4021-b530-bac172fcba86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ECS">
+    <Filter Include="CCLib">
       <UniqueIdentifier>{e7eaa5ba-7431-49b3-b995-46dbe8a0c4f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS">
+      <UniqueIdentifier>{b70cd803-fdb0-469d-bf82-08d9e47bf030}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
