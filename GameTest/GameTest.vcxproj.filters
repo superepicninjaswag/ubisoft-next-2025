@@ -33,6 +33,12 @@
     <ClCompile Include="ComponentPool.test.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>CCLib\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -72,6 +78,15 @@
     <ClInclude Include="ComponentPool.h">
       <Filter>ECS</Filter>
     </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>CCLib\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -91,6 +106,12 @@
     </Filter>
     <Filter Include="ECS">
       <UniqueIdentifier>{b70cd803-fdb0-469d-bf82-08d9e47bf030}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{1be28353-d6e7-45b0-a986-b6f70361bff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CCLib\Math">
+      <UniqueIdentifier>{9e521621-64d3-4280-b5fd-9cb8408a84f9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

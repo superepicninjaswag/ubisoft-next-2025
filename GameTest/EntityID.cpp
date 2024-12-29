@@ -21,3 +21,7 @@ uint16_t EntityID::GetHandle() const {
 uint16_t EntityID::GetVersion() const {
 	return static_cast<uint16_t>(identifier);
 }
+
+void EntityID::Zero() {
+	identifier = 0;
+}

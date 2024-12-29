@@ -14,11 +14,15 @@
 #include "ComponentPool.h"
 
 
+ECS ecs;
+EntityID temp(1, 0);
+
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
 //------------------------------------------------------------------------
 void Init() {
-
+	ecs.Init();
+	ecs.transforms.Add(temp);
 }
 
 //------------------------------------------------------------------------
@@ -26,8 +30,7 @@ void Init() {
 // This will be called at no greater frequency than the value of APP_MAX_FRAME_RATE
 //------------------------------------------------------------------------
 void Update( const float deltaTime ) {
-	float temp = deltaTime + 2;
-	temp++;
+	ecs.transforms.Get(temp)->position.x = deltaTime;
 }
 
 //------------------------------------------------------------------------
