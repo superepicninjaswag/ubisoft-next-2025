@@ -10,5 +10,7 @@ void ECS::Init() {
 }
 
 void ECS::DeleteEntity(EntityID id) {
+	idManager.RecycleID(id);
+
 	transforms.Delete(id);
 }

@@ -56,7 +56,11 @@ inline void ComponentPool<T>::Add(EntityID id, Args&&... args) {
 
 template<typename T>
 inline T* ComponentPool<T>::Get(EntityID id) {
-	return &dense[sparse[id.GetHandle()]];
+	if (this->Has(id)) {
+		return &dense[sparse[id.GetHandle()]];
+	} else {
+		return nullptr;
+	}
 }
 
 template<typename T>

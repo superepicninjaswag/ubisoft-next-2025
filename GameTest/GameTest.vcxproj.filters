@@ -36,8 +36,11 @@
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
+    <ClCompile Include="Vec2.cpp">
       <Filter>CCLib\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="IDManager.cpp">
+      <Filter>ECS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,8 +87,11 @@
     <ClInclude Include="Components.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
+    <ClInclude Include="Vec2.h">
       <Filter>CCLib\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="IDManager.h">
+      <Filter>ECS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

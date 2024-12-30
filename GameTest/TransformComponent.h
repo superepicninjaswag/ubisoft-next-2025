@@ -1,11 +1,11 @@
 #pragma once
 
 
-#include "./Vector2.h"
+#include "./Vec2.h"
 
 struct TransformComponent {
-	Vector2 position;
-	Vector2 rotation;
+	Vec2 position;
+	Vec2 rotation;
 
 			TransformComponent();
 			TransformComponent(float x, float y);

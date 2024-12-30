@@ -15,14 +15,14 @@
 
 
 ECS ecs;
-EntityID temp(1, 0);
+EntityID tempID = ecs.idManager.GetNewId();
+char textBuffer[64];
 
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
 //------------------------------------------------------------------------
 void Init() {
 	ecs.Init();
-	ecs.transforms.Add(temp);
 }
 
 //------------------------------------------------------------------------
@@ -30,7 +30,11 @@ void Init() {
 // This will be called at no greater frequency than the value of APP_MAX_FRAME_RATE
 //------------------------------------------------------------------------
 void Update( const float deltaTime ) {
-	ecs.transforms.Get(temp)->position.x = deltaTime;
+	ecs.DeleteEntity(tempID);
+	tempID = ecs.idManager.GetNewId();
+	ecs.transforms.Add(tempID);
+	ecs.transforms.Get(tempID)->position.x = deltaTime;
+	sprintf(textBuffer, "%u, %0.4f", tempID.GetVersion(), ecs.transforms.Get(tempID)->position.x);
 }
 
 //------------------------------------------------------------------------
@@ -38,7 +42,7 @@ void Update( const float deltaTime ) {
 // See App.h 
 //------------------------------------------------------------------------
 void Render() {	
-
+	App::Print(50, 50, textBuffer, 1.0f, 0.0f, 1.0f, GLUT_BITMAP_HELVETICA_10);
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.
