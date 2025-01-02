@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <cassert>
 #include <utility>
 #include <vector>
 
@@ -56,11 +57,8 @@ inline void ComponentPool<T>::Add(EntityID id, Args&&... args) {
 
 template<typename T>
 inline T* ComponentPool<T>::Get(EntityID id) {
-	if (this->Has(id)) {
-		return &dense[sparse[id.GetHandle()]];
-	} else {
-		return nullptr;
-	}
+	assert(this->Has(id));
+	return &dense[sparse[id.GetHandle()]];
 }
 
 template<typename T>

@@ -14,3 +14,7 @@ void ECS::DeleteEntity(EntityID id) {
 
 	transforms.Delete(id);
 }
+
+void ECS::UpdateSystems() {
+
+}

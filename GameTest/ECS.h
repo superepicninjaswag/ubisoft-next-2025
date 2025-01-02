@@ -14,4 +14,8 @@ public:
 											ECS();
 	void									Init();
 	void									DeleteEntity(EntityID id);
+	void									UpdateSystems();
+
+	// Systems
+	// ...
 };
