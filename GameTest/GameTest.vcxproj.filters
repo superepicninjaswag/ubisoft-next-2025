@@ -42,6 +42,9 @@
     <ClCompile Include="IDManager.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
+    <ClCompile Include="ShapeComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -92,6 +95,9 @@
     </ClInclude>
     <ClInclude Include="IDManager.h">
       <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

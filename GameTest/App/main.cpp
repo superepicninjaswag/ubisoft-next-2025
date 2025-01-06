@@ -23,7 +23,7 @@ int WINDOW_HEIGHT = APP_INIT_WINDOW_HEIGHT;
 HWND MAIN_WINDOW_HANDLE = nullptr;
 
 //---------------------------------------------------------------------------------
-static const double FIXED_TIME_STEP = ((1.0 / APP_MAX_FRAME_RATE)*1000.0);
+static const float FIXED_TIME_STEP = ( (1.0f / APP_MAX_FRAME_RATE) * 1000.0f );
 //---------------------------------------------------------------------------------
 // Internal globals for timing.
 double gPCFreq = 0.0;
@@ -132,7 +132,7 @@ void Idle()
 	if (accumulatedTime >= FIXED_TIME_STEP)
 	{
 		gUpdateDeltaTime.Stop();
-		accumulatedTime -= FIXED_TIME_STEP;
+		accumulatedTime -= static_cast<double>(FIXED_TIME_STEP);
 		glutPostRedisplay(); //every time you are done
 		CSimpleControllers::GetInstance().Update();
 

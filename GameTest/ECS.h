@@ -9,6 +9,7 @@
 class ECS {
 public:
 	IDManager								idManager;
+	ComponentPool<ShapeComponent>			shapes;
 	ComponentPool<TransformComponent>		transforms;
 
 											ECS();

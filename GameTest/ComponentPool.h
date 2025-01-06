@@ -5,7 +5,6 @@
 #include <utility>
 #include <vector>
 
-
 #include "./EntityID.h"
 
 /*
@@ -28,31 +27,23 @@ public:
 								ComponentPool();
 
 	void						Init(uint16_t size);
-	template <typename... Args>
-	void						Add(EntityID id, Args&&... args);
 	T *							Get(EntityID id);
 	bool						Has(EntityID id);
 	void						Delete(EntityID id);
+
+	template <typename... Args>
+	void						Add(EntityID id, Args&&... args);
 };
 
 template<typename T>
 inline ComponentPool<T>::ComponentPool() {
-
-}
-
-template<typename T>
-inline void ComponentPool<T>::Init(uint16_t size) {
 	sparse.resize(UINT16_MAX, 0);
-	dense.reserve(size);
 	mirror.resize(UINT16_MAX, EntityID(0, 0));
 }
 
 template<typename T>
-template <typename... Args>
-inline void ComponentPool<T>::Add(EntityID id, Args&&... args) {
-	dense.emplace_back(std::forward<Args>(args)...);
-	sparse[id.GetHandle()] = static_cast<uint16_t>( dense.size() - 1 );
-	mirror[dense.size() - 1] = id;
+inline void ComponentPool<T>::Init(uint16_t size) {
+	dense.reserve(size);
 }
 
 template<typename T>
@@ -71,4 +62,12 @@ inline void ComponentPool<T>::Delete(EntityID id) {
 	if ( this->Has(id) ) {
 		mirror[sparse[id.GetHandle()]].Zero();
 	}
+}
+
+template<typename T>
+template <typename... Args>
+inline void ComponentPool<T>::Add(EntityID id, Args&&... args) {
+	dense.emplace_back(std::forward<Args>(args)...);
+	sparse[id.GetHandle()] = static_cast<uint16_t>(dense.size() - 1);
+	mirror[dense.size() - 1] = id;
 }

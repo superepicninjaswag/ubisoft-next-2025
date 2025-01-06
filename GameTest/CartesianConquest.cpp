@@ -30,6 +30,12 @@ ECS ecs;
 //------------------------------------------------------------------------
 void Init() {
 	ecs.Init();
+	EntityID temp = ecs.idManager.GetNewId();
+	ecs.shapes.Add(temp);
+	ecs.shapes.Get(temp)->points.emplace_back(1.0f, 1.0f);
+	ecs.shapes.Get(temp)->points.emplace_back(1.0f, -1.0f);
+	ecs.shapes.Get(temp)->points.emplace_back(-1.0f, -1.0f);
+	ecs.shapes.Get(temp)->points.emplace_back(-1.0f, 1.0f);
 }
 
 //------------------------------------------------------------------------

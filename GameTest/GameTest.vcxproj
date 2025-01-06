@@ -202,6 +202,7 @@
     <ClInclude Include="ComponentPool.h" />
     <ClInclude Include="IDManager.h" />
     <ClInclude Include="miniaudio\miniaudio.h" />
+    <ClInclude Include="ShapeComponent.h" />
     <ClInclude Include="stb_image\stb_image.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="EntityID.cpp" />
     <ClCompile Include="IDManager.cpp" />
     <ClCompile Include="miniaudio\miniaudio.cpp" />
+    <ClCompile Include="ShapeComponent.cpp" />
     <ClCompile Include="stb_image\stb_image.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
