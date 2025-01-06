@@ -24,18 +24,18 @@
  */
 ECS ecs;
 
+EntityID temp = ecs.idManager.GetNewId();
 
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
 //------------------------------------------------------------------------
 void Init() {
 	ecs.Init();
-	EntityID temp = ecs.idManager.GetNewId();
 	ecs.shapes.Add(temp);
-	ecs.shapes.Get(temp)->points.emplace_back(1.0f, 1.0f);
-	ecs.shapes.Get(temp)->points.emplace_back(1.0f, -1.0f);
-	ecs.shapes.Get(temp)->points.emplace_back(-1.0f, -1.0f);
-	ecs.shapes.Get(temp)->points.emplace_back(-1.0f, 1.0f);
+	ecs.shapes.Get(temp)->points.emplace_back(10.0f, 10.0f);
+	ecs.shapes.Get(temp)->points.emplace_back(10.0f, -10.0f);
+	ecs.shapes.Get(temp)->points.emplace_back(-10.0f, -10.0f);
+	ecs.shapes.Get(temp)->points.emplace_back(-10.0f, 10.0f);
 }
 
 //------------------------------------------------------------------------
@@ -51,7 +51,15 @@ void Update( const float deltaTime ) {
 // See App.h 
 //------------------------------------------------------------------------
 void Render() {
-
+	std::vector<ShapeComponent>& shapes = ecs.shapes.dense;
+	for (int i = 0; i < shapes.size(); i++) {
+		std::vector<Vec2>& points = shapes[i].points;
+		int j = 0;
+		for (; j < points.size() - 1; j++) {
+			App::DrawLine(points[j].x, points[j].y, points[j + 1].x, points[j + 1].y);
+		}
+		App::DrawLine(points[j].x, points[j].y, points[0].x, points[0].y);
+	}
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.
