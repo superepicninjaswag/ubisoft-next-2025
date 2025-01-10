@@ -32,10 +32,13 @@ EntityID temp = ecs.idManager.GetNewId();
 void Init() {
 	ecs.Init();
 	ecs.shapes.Add(temp);
-	ecs.shapes.Get(temp)->points.emplace_back(10.0f, 10.0f);
+	ecs.shapes.Get(temp)->points.emplace_back(10.0f, 5.0f);
 	ecs.shapes.Get(temp)->points.emplace_back(10.0f, -10.0f);
-	ecs.shapes.Get(temp)->points.emplace_back(-10.0f, -10.0f);
+	ecs.shapes.Get(temp)->points.emplace_back(-5.0f, -10.0f);
 	ecs.shapes.Get(temp)->points.emplace_back(-10.0f, 10.0f);
+	ecs.transforms.Add(temp);
+	ecs.transforms.Get(temp)->position.x = 501.0f;
+	ecs.transforms.Get(temp)->position.y = 400.0f;
 }
 
 //------------------------------------------------------------------------
@@ -51,15 +54,7 @@ void Update( const float deltaTime ) {
 // See App.h 
 //------------------------------------------------------------------------
 void Render() {
-	std::vector<ShapeComponent>& shapes = ecs.shapes.dense;
-	for (int i = 0; i < shapes.size(); i++) {
-		std::vector<Vec2>& points = shapes[i].points;
-		int j = 0;
-		for (; j < points.size() - 1; j++) {
-			App::DrawLine(points[j].x, points[j].y, points[j + 1].x, points[j + 1].y);
-		}
-		App::DrawLine(points[j].x, points[j].y, points[0].x, points[0].y);
-	}
+	ecs.DrawShapes();
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.

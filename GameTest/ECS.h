@@ -17,6 +17,8 @@ public:
 	void									DeleteEntity(EntityID id);
 	void									UpdateSystems();
 
-	// Systems
-	// ...
+	// Game Systems
+
+	// Rendering related
+	void									DrawShapes();
 };
