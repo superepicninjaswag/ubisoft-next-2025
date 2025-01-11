@@ -14,6 +14,7 @@ void ECS::DeleteEntity(EntityID id) {
 	idManager.RecycleID(id);
 
 	transforms.Delete(id);
+	shapes.Delete(id);
 }
 
 void ECS::UpdateSystems() {

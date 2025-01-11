@@ -30,20 +30,29 @@
     <ClCompile Include="EntityID.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentPool.test.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Vec2.cpp">
-      <Filter>CCLib\Math</Filter>
+      <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="IDManager.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
     <ClCompile Include="ShapeComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,13 +100,28 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Vec2.h">
-      <Filter>CCLib\Math</Filter>
+      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="IDManager.h">
       <Filter>ECS</Filter>
     </ClInclude>
     <ClInclude Include="ShapeComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,17 +137,26 @@
     <Filter Include="API\third_party\stb_image">
       <UniqueIdentifier>{61cfc19b-c57e-4021-b530-bac172fcba86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CCLib">
-      <UniqueIdentifier>{e7eaa5ba-7431-49b3-b995-46dbe8a0c4f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ECS">
       <UniqueIdentifier>{b70cd803-fdb0-469d-bf82-08d9e47bf030}</UniqueIdentifier>
     </Filter>
     <Filter Include="Components">
       <UniqueIdentifier>{1be28353-d6e7-45b0-a986-b6f70361bff8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CCLib\Math">
+    <Filter Include="UI">
+      <UniqueIdentifier>{0bd328c9-1ad4-4992-8076-3a248865d159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Elements">
+      <UniqueIdentifier>{3e931b89-12f4-4dfd-af2d-e963f91102f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
       <UniqueIdentifier>{9e521621-64d3-4280-b5fd-9cb8408a84f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{b7099236-eb0a-4972-bfa2-a60e9e8cd011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{93d8801d-c683-40e5-a190-ebaaee46fb16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,10 @@
 #include "app\app.h"
 //------------------------------------------------------------------------
 #include "ECS.h"
-#include "ComponentPool.h"
+#include "InputManager.h"
+
+#include "Text.h"
+#include "Button.h"
 
 
 /* TODO:
@@ -23,22 +26,19 @@
  * Player input manager and event system
  */
 ECS ecs;
+InputManager inputManager;
 
-EntityID temp = ecs.idManager.GetNewId();
+Text test;
+Button testb;
+int frameNumber = 0;
+
+std::vector<Text> garbage;
 
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
 //------------------------------------------------------------------------
 void Init() {
 	ecs.Init();
-	ecs.shapes.Add(temp);
-	ecs.shapes.Get(temp)->points.emplace_back(10.0f, 5.0f);
-	ecs.shapes.Get(temp)->points.emplace_back(10.0f, -10.0f);
-	ecs.shapes.Get(temp)->points.emplace_back(-5.0f, -10.0f);
-	ecs.shapes.Get(temp)->points.emplace_back(-10.0f, 10.0f);
-	ecs.transforms.Add(temp);
-	ecs.transforms.Get(temp)->position.x = 501.0f;
-	ecs.transforms.Get(temp)->position.y = 400.0f;
 }
 
 //------------------------------------------------------------------------
@@ -46,7 +46,12 @@ void Init() {
 // This will be called at no greater frequency than the value of APP_MAX_FRAME_RATE
 //------------------------------------------------------------------------
 void Update( const float deltaTime ) {
-	
+	inputManager.updateInputs();
+
+	if ( inputManager.GetKeyState(VK_LBUTTON) == KeyState::Pressed ) {
+		garbage.emplace_back();
+		garbage.back().position = inputManager.currentMousePosition;
+	}
 }
 
 //------------------------------------------------------------------------
@@ -55,6 +60,11 @@ void Update( const float deltaTime ) {
 //------------------------------------------------------------------------
 void Render() {
 	ecs.DrawShapes();
+	test.draw();
+	testb.draw();
+	for (auto &t : garbage) {
+		t.draw();
+	}
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.
