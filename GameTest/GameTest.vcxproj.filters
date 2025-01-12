@@ -54,6 +54,9 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="ShapeRenderer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -123,6 +126,9 @@
     <ClInclude Include="InputManager.h">
       <Filter>Input</Filter>
     </ClInclude>
+    <ClInclude Include="ShapeRenderer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -157,6 +163,9 @@
     </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{93d8801d-c683-40e5-a190-ebaaee46fb16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{40efe06d-9e57-4010-8d5b-f91e73a5d259}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

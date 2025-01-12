@@ -24,10 +24,4 @@ public:
 											ECS();
 	void									Init();
 	void									DeleteEntity(EntityID id);
-	void									UpdateSystems();
-
-	// Game Systems
-
-	// Rendering related
-	void									DrawShapes();
 };

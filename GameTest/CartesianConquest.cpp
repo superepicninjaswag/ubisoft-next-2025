@@ -11,6 +11,7 @@
 #include "app\app.h"
 //------------------------------------------------------------------------
 #include "ECS.h"
+#include "ShapeRenderer.h"
 #include "InputManager.h"
 
 #include "Text.h"
@@ -25,7 +26,9 @@
  * Scene manager
  * Player input manager and event system
  */
+
 ECS ecs;
+ShapeRenderer shapeRenderer(ecs);
 InputManager inputManager;
 
 Text test;
@@ -59,7 +62,8 @@ void Update( const float deltaTime ) {
 // See App.h 
 //------------------------------------------------------------------------
 void Render() {
-	ecs.DrawShapes();
+	shapeRenderer.RenderShapes();
+
 	test.draw();
 	testb.draw();
 	for (auto &t : garbage) {
