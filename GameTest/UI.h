@@ -25,7 +25,10 @@
 */
 
 class UI {
-	std::vector<Text> texts;
-	std::vector<Button> buttons;
-	std::vector<TextInput> textInputs;
+	std::vector<Text>					texts;
+	std::vector<Button>					buttons;
+	std::vector<TextInput>				textInputs;
+
+	void								draw();
+	void								update();
 };

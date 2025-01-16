@@ -31,8 +31,6 @@
 ECS ecs;
 ShapeRenderer shapeRenderer(ecs);
 
-TextInput test(40);
-
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
 //------------------------------------------------------------------------
@@ -47,7 +45,6 @@ void Init() {
 //------------------------------------------------------------------------
 void Update( const float deltaTime ) {
 	InputManager::GetInstance().updateInputs();
-	test.update();
 }
 
 //------------------------------------------------------------------------
@@ -56,7 +53,6 @@ void Update( const float deltaTime ) {
 //------------------------------------------------------------------------
 void Render() {
 	shapeRenderer.RenderShapes();
-	test.draw();
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.

@@ -14,18 +14,19 @@
 */
 class TextInput : public UIElement {
 public:
-	std::string				text;
-	std::string				cursor;
-	Vec2					position;
+	std::string					text;
+	std::string					cursor;
+	Vec2						position;
 
-							TextInput(int characterLimit);
-	void					draw() override;
-	void					update();
+								TextInput(int characterLimit);
+	void						draw() override;
+	void						update();
 
 private:
-	Vec2					points[4];
-	int						cursorLocation;
-	int						blinkingCursorTimer;
-	int						characterLimit;
-	bool					focused;
+	Vec2						points[4];
+	int							cursorLocation;
+	int							blinkingCursorTimer;
+	int							characterLimit;
+	bool						focused;
+	std::vector<int>			acceptableCharacters;
 };

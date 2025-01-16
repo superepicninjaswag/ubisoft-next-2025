@@ -2,7 +2,10 @@
 #include "InputManager.h"
 
 InputManager::InputManager() {
-	std::vector<int> keysToTrack = { 'W', 'A', 'S', 'D', VK_LBUTTON, VK_RBUTTON };
+	std::vector<int> keysToTrack = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+									'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+									VK_LBUTTON, VK_RBUTTON, VK_BACK, VK_RETURN,
+									VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN };
 	
 	for ( auto key : keysToTrack ) {
 		trackedKeys.emplace(key, KeyState::Idle);
