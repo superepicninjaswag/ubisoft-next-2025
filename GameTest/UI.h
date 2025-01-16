@@ -23,12 +23,13 @@
 
 ===============================================================================
 */
-
 class UI {
+public:
 	std::vector<Text>					texts;
 	std::vector<Button>					buttons;
 	std::vector<TextInput>				textInputs;
 
 	void								draw();
 	void								update();
+	virtual void						onUpdate() = 0;
 };

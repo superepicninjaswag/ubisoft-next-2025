@@ -14,9 +14,7 @@
 #include "ShapeRenderer.h"
 #include "InputManager.h"
 
-#include "Text.h"
-#include "Button.h"
-#include "TextInput.h"
+#include "MainMenuUI.h"
 
 
 /* TODO:
@@ -30,6 +28,7 @@
 
 ECS ecs;
 ShapeRenderer shapeRenderer(ecs);
+MainMenuUI ui;
 
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
@@ -45,6 +44,7 @@ void Init() {
 //------------------------------------------------------------------------
 void Update( const float deltaTime ) {
 	InputManager::GetInstance().updateInputs();
+	ui.update();
 }
 
 //------------------------------------------------------------------------
@@ -53,6 +53,7 @@ void Update( const float deltaTime ) {
 //------------------------------------------------------------------------
 void Render() {
 	shapeRenderer.RenderShapes();
+	ui.draw();
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.

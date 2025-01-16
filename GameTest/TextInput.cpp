@@ -71,10 +71,10 @@ void TextInput::update() {
 
 		// Move cursor
 		KeyState leftArrowState = InputManager::GetInstance().GetKeyState( VK_LEFT );
-		bool isLeftArrowActive = leftArrowState == KeyState::Pressed || leftArrowState == KeyState::Held;
+		bool isLeftArrowActive = ( leftArrowState == KeyState::Pressed ) || ( leftArrowState == KeyState::Held );
 
 		KeyState rightArrowState = InputManager::GetInstance().GetKeyState(VK_RIGHT);
-		bool isRightArrowActive = rightArrowState == KeyState::Pressed || rightArrowState == KeyState::Held;
+		bool isRightArrowActive = ( rightArrowState == KeyState::Pressed ) || ( rightArrowState == KeyState::Held );
 
 		int cursorDirection = 1 * isRightArrowActive + (-1 * isLeftArrowActive);
 		cursorLocation += cursorDirection;
@@ -97,6 +97,7 @@ void TextInput::update() {
 		if (text.size() > 0 && cursorLocation > 0 && isBackspace ) {
 			text.erase(cursorLocation - 1, 1);
 			cursorLocation -= 1;
+			blinkingCursorTimer = 0;
 		}
 
 		// Input characters

@@ -60,6 +60,9 @@
     <ClCompile Include="TextInput.cpp">
       <Filter>UI\Elements</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenuUI.cpp">
+      <Filter>Scenes\MainMenu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -135,6 +138,9 @@
     <ClInclude Include="TextInput.h">
       <Filter>UI\Elements</Filter>
     </ClInclude>
+    <ClInclude Include="MainMenuUI.h">
+      <Filter>Scenes\MainMenu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -172,6 +178,12 @@
     </Filter>
     <Filter Include="Graphics">
       <UniqueIdentifier>{40efe06d-9e57-4010-8d5b-f91e73a5d259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{b51ced24-461f-4aa4-857c-be5261efa32b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\MainMenu">
+      <UniqueIdentifier>{96907ae5-5e5a-451f-b9ea-a11793ebf910}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
