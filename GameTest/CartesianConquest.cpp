@@ -16,6 +16,7 @@
 
 #include "Text.h"
 #include "Button.h"
+#include "TextInput.h"
 
 
 /* TODO:
@@ -29,18 +30,14 @@
 
 ECS ecs;
 ShapeRenderer shapeRenderer(ecs);
-InputManager inputManager;
 
-Text test;
-Button testb;
-int frameNumber = 0;
-
-std::vector<Text> garbage;
+TextInput test(40);
 
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
 //------------------------------------------------------------------------
 void Init() {
+	InputManager::GetInstance();
 	ecs.Init();
 }
 
@@ -49,12 +46,8 @@ void Init() {
 // This will be called at no greater frequency than the value of APP_MAX_FRAME_RATE
 //------------------------------------------------------------------------
 void Update( const float deltaTime ) {
-	inputManager.updateInputs();
-
-	if ( inputManager.GetKeyState(VK_LBUTTON) == KeyState::Pressed ) {
-		garbage.emplace_back();
-		garbage.back().position = inputManager.currentMousePosition;
-	}
+	InputManager::GetInstance().updateInputs();
+	test.update();
 }
 
 //------------------------------------------------------------------------
@@ -63,12 +56,7 @@ void Update( const float deltaTime ) {
 //------------------------------------------------------------------------
 void Render() {
 	shapeRenderer.RenderShapes();
-
 	test.draw();
-	testb.draw();
-	for (auto &t : garbage) {
-		t.draw();
-	}
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.

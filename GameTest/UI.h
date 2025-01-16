@@ -2,6 +2,7 @@
 
 #include "Button.h"
 #include "Text.h"
+#include "TextInput.h"
 #include <vector>
 
 /*
@@ -26,4 +27,5 @@
 class UI {
 	std::vector<Text> texts;
 	std::vector<Button> buttons;
+	std::vector<TextInput> textInputs;
 };

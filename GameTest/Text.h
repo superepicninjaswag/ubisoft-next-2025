@@ -9,6 +9,6 @@ public:
 	std::string			text;
 	Vec2				position;
 
-	Text();
+						Text();
 	void				draw() override;
 };

@@ -57,6 +57,9 @@
     <ClCompile Include="ShapeRenderer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="TextInput.cpp">
+      <Filter>UI\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -128,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="ShapeRenderer.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TextInput.h">
+      <Filter>UI\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

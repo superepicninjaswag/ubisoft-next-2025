@@ -4,6 +4,7 @@
 #include <cassert>
 #include <utility>
 #include <vector>
+#include <algorithm>
 
 #include "./EntityID.h"
 
@@ -36,8 +37,8 @@ public:
 
 template<typename T>
 inline ComponentPool<T>::ComponentPool() {
-	sparse.resize(UINT16_MAX, 0);
-	mirror.resize(UINT16_MAX, EntityID(0, 0));
+	sparse.resize( UINT16_MAX, 0 );
+	mirror.resize( UINT16_MAX, EntityID(0, 0) );
 }
 
 template<typename T>
@@ -48,25 +49,34 @@ inline void ComponentPool<T>::Init(uint16_t size) {
 template<typename T>
 inline T* ComponentPool<T>::Get(EntityID id) {
 	assert(this->Has(id));
-	return &dense[sparse[id.GetHandle()]];
+	return &dense[ sparse[ id.GetHandle() ] ];
 }
 
 template<typename T>
 inline bool ComponentPool<T>::Has(EntityID id) {
-	return mirror[sparse[id.GetHandle()]] == id;
+	return mirror[ sparse[ id.GetHandle() ] ] == id;
 }
 
 template<typename T>
 inline void ComponentPool<T>::Delete(EntityID id) {
 	if ( this->Has(id) ) {
-		mirror[sparse[id.GetHandle()]].Zero();
+		uint16_t index = sparse[ id.GetHandle() ];
+		mirror[ index ].Zero();
+
+		if ( dense.size() > 1) {
+			std::swap( dense.back(), dense[ index ] );
+			std::swap( mirror.back(), mirror[ index ] );
+			sparse[ mirror[ index ].GetHandle() ] = index;
+		}
+
+		dense.pop_back();
 	}
 }
 
 template<typename T>
 template <typename... Args>
 inline void ComponentPool<T>::Add(EntityID id, Args&&... args) {
-	dense.emplace_back(std::forward<Args>(args)...);
-	sparse[id.GetHandle()] = static_cast<uint16_t>(dense.size() - 1);
-	mirror[dense.size() - 1] = id;
+	dense.emplace_back( std::forward<Args>(args)... );
+	sparse[ id.GetHandle() ] = static_cast<uint16_t>( dense.size() - 1 );
+	mirror[ dense.size() - 1 ] = id;
 }

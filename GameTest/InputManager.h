@@ -30,11 +30,15 @@ public:
 	Vec2										currentMousePosition;
 	Vec2										previousMousePosition;
 
-												InputManager();
-
 	void										updateInputs();
 	KeyState									GetKeyState(const int key);
 
+	static InputManager& GetInstance() {
+		static InputManager instance; // Static instance
+		return instance;
+	}
+
 private:
+	InputManager();
 	std::unordered_map<int, KeyState>			trackedKeys;
 };
