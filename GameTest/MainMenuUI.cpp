@@ -27,7 +27,11 @@ MainMenuUI::MainMenuUI() {
 }
 
 void MainMenuUI::OnUpdate() {
-	if ( !UI::uiEventQueue.empty() ) {
-		UI::uiEventQueue.pop_back();
+	if ( !uiEventQueue.empty() ) {
+		for ( auto& event : uiEventQueue ) {
+			if ( event.uiElementName == "exit" && event.eventType == EventType::Click) {
+				glutLeaveMainLoop();
+			}
+		}
 	}
 }
