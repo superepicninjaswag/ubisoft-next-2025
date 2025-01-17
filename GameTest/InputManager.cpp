@@ -45,3 +45,8 @@ void InputManager::updateInputs() {
 KeyState InputManager::GetKeyState(const int key) {
 	return trackedKeys[key];
 }
+
+InputManager& InputManager::GetInstance() {
+	static InputManager instance;
+	return instance;
+}

@@ -5,26 +5,23 @@
 TextInput::TextInput(int characterLimit) : text(""), cursor("|"), cursorLocation(0), blinkingCursorTimer(0), characterLimit(characterLimit), focused(false) {
 	acceptableCharacters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
 							'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-
 	position.x = 360;
 	position.y = 360;
 
+	// Used when calculating box points too effectively contain text
 	int characterWidthToPixelRatio = 13;
 	int characterHeightInPixels = 25;
 
-	// Bottom left
+	// Box points
 	points[0].x = position.x;
 	points[0].y = position.y;
 
-	// Top left
 	points[1].x = position.x;
 	points[1].y = position.y + characterHeightInPixels;
 
-	// Top right
 	points[2].x = position.x + characterLimit * characterWidthToPixelRatio;
 	points[2].y = position.y + characterHeightInPixels;
 
-	// Bottom right
 	points[3].x = position.x + characterLimit * characterWidthToPixelRatio;
 	points[3].y = position.y;
 }

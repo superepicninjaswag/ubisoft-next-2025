@@ -201,6 +201,9 @@
     <ClInclude Include="EntityID.h" />
     <ClInclude Include="ComponentPool.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="MainMenuScene.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="MainMenuUI.h" />
     <ClInclude Include="TextInput.h" />
     <ClInclude Include="ShapeRenderer.h" />
@@ -229,10 +232,12 @@
     <ClCompile Include="EntityID.cpp" />
     <ClCompile Include="IDManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MainMenuUI.cpp" />
     <ClCompile Include="miniaudio\miniaudio.cpp" />
     <ClCompile Include="ShapeComponent.cpp" />
     <ClCompile Include="ShapeRenderer.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TextInput.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="stb_image\stb_image.cpp" />

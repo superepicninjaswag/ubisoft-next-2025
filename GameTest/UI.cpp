@@ -18,13 +18,15 @@ void UI::draw() {
 }
 
 void UI::update() {
+	/*
 	for (auto& text : texts) {
-		//text.update();
+		text.update();
 	}
 
 	for (auto& button : buttons) {
-		//button.update();
+		button.update();
 	}
+	*/
 
 	for (auto& textInput : textInputs) {
 		textInput.update();

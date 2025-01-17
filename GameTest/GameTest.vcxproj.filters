@@ -52,7 +52,7 @@
       <Filter>UI\Elements</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Input</Filter>
+      <Filter>InputManager</Filter>
     </ClCompile>
     <ClCompile Include="ShapeRenderer.cpp">
       <Filter>Graphics</Filter>
@@ -61,7 +61,13 @@
       <Filter>UI\Elements</Filter>
     </ClCompile>
     <ClCompile Include="MainMenuUI.cpp">
-      <Filter>Scenes\MainMenu</Filter>
+      <Filter>Levels\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Levels\MainMenu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +136,7 @@
       <Filter>UI\Elements</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Input</Filter>
+      <Filter>InputManager</Filter>
     </ClInclude>
     <ClInclude Include="ShapeRenderer.h">
       <Filter>Graphics</Filter>
@@ -139,7 +145,16 @@
       <Filter>UI\Elements</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuUI.h">
-      <Filter>Scenes\MainMenu</Filter>
+      <Filter>Levels\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>Levels\MainMenu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -173,17 +188,20 @@
     <Filter Include="Physics">
       <UniqueIdentifier>{b7099236-eb0a-4972-bfa2-a60e9e8cd011}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Input">
-      <UniqueIdentifier>{93d8801d-c683-40e5-a190-ebaaee46fb16}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Graphics">
       <UniqueIdentifier>{40efe06d-9e57-4010-8d5b-f91e73a5d259}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scenes">
+    <Filter Include="SceneManager">
+      <UniqueIdentifier>{edc70188-e1f1-4044-b5a7-547a4cb509c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Levels">
       <UniqueIdentifier>{b51ced24-461f-4aa4-857c-be5261efa32b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scenes\MainMenu">
+    <Filter Include="Levels\MainMenu">
       <UniqueIdentifier>{96907ae5-5e5a-451f-b9ea-a11793ebf910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InputManager">
+      <UniqueIdentifier>{93d8801d-c683-40e5-a190-ebaaee46fb16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

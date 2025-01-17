@@ -33,12 +33,9 @@ public:
 	void										updateInputs();
 	KeyState									GetKeyState(const int key);
 
-	static InputManager& GetInstance() {
-		static InputManager instance; // Static instance
-		return instance;
-	}
+	static InputManager&						GetInstance();
 
 private:
-	InputManager();
+												InputManager();
 	std::unordered_map<int, KeyState>			trackedKeys;
 };

@@ -10,32 +10,24 @@
 //------------------------------------------------------------------------
 #include "app\app.h"
 //------------------------------------------------------------------------
+#include "SceneManager.h"
 #include "ECS.h"
 #include "ShapeRenderer.h"
 #include "InputManager.h"
 
-#include "MainMenuUI.h"
+#include "MainMenuScene.h"
 
-
-/* TODO:
- * Shared components / Singleton components
- * Systems vector that is looped
- * Input buffer for rollback
- * UI system
- * Scene manager
- * Player input manager and event system
- */
-
-ECS ecs;
-ShapeRenderer shapeRenderer(ecs);
-MainMenuUI ui;
 
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
 //------------------------------------------------------------------------
 void Init() {
+	// Singleton creation via initial call to GetInstance
+	SceneManager::GetInstance();
 	InputManager::GetInstance();
-	ecs.Init();
+
+	// Set initial scene
+	SceneManager::GetInstance().changeScene( std::make_unique<MainMenuScene>() );
 }
 
 //------------------------------------------------------------------------
@@ -44,7 +36,7 @@ void Init() {
 //------------------------------------------------------------------------
 void Update( const float deltaTime ) {
 	InputManager::GetInstance().updateInputs();
-	ui.update();
+	SceneManager::GetInstance().update();
 }
 
 //------------------------------------------------------------------------
@@ -52,8 +44,7 @@ void Update( const float deltaTime ) {
 // See App.h 
 //------------------------------------------------------------------------
 void Render() {
-	shapeRenderer.RenderShapes();
-	ui.draw();
+	SceneManager::GetInstance().render();
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.
