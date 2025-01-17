@@ -14,8 +14,7 @@
 */
 class ShapeRenderer {
 public:
-	ComponentPool<ShapeComponent>				&shapes;
-	ComponentPool<TransformComponent>			&transforms;
+	ECS&										ecs;
 
 												ShapeRenderer(ECS &ecs);
 

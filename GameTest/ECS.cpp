@@ -2,17 +2,18 @@
 #include "ECS.h"
 
 ECS::ECS() {
-
+	RegisterComponent<ShapeComponent>();
+	RegisterComponent<TransformComponent>();
 }
 
 void ECS::Init() {
-	transforms.Init(300);
-	shapes.Init(50);
+	GetPool<ShapeComponent>()->Init( 100 );
+	GetPool<TransformComponent>()->Init( 100 );
 }
 
 void ECS::DeleteEntity(EntityID id) {
 	idManager.RecycleID(id);
 
-	transforms.Delete(id);
-	shapes.Delete(id);
+	GetPool<ShapeComponent>()->Delete( id );
+	GetPool<TransformComponent>()->Delete( id );
 }

@@ -16,6 +16,7 @@
 #include "InputManager.h"
 
 #include "MainMenuScene.h"
+#include "DevSandboxScene.h"
 
 
 //------------------------------------------------------------------------
@@ -27,7 +28,7 @@ void Init() {
 	InputManager::GetInstance();
 
 	// Set initial scene
-	SceneManager::GetInstance().ChangeScene( std::make_unique<MainMenuScene>() );
+	SceneManager::GetInstance().ChangeScene( std::make_unique<DevSandboxScene>() );
 }
 
 //------------------------------------------------------------------------

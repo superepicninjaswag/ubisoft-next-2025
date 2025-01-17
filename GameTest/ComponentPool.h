@@ -18,7 +18,7 @@
 ===============================================================================
 */
 template<typename T>
-class ComponentPool {
+class ComponentPool : public ComponentPoolBase {
 public:
 	std::vector<uint16_t>		sparse;
 	std::vector<T>				dense;

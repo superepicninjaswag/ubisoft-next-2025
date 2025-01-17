@@ -172,6 +172,9 @@
     <ClInclude Include="DevSandboxUI.h">
       <Filter>Levels\DevSandbox</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentPoolBase.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">

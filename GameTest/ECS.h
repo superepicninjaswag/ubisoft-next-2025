@@ -1,9 +1,15 @@
 #pragma once
 
-#include "./ComponentPool.h"
-#include "./Components.h"
-#include "./EntityID.h"
-#include "./IDManager.h"
+#include "ComponentPool.h"
+#include "ComponentPoolBase.h"
+#include "Components.h"
+#include "EntityID.h"
+#include "IDManager.h"
+
+#include <typeindex>
+#include <unordered_map>
+#include <memory>
+#include <utility>
 
 
 /*
@@ -19,11 +25,33 @@
 */
 class ECS {
 public:
-	IDManager								idManager;
-	ComponentPool<ShapeComponent>			shapes;
-	ComponentPool<TransformComponent>		transforms;
+	std::unordered_map<std::type_index, std::unique_ptr<ComponentPoolBase>>			componentPools;
+	IDManager																		idManager;
 
-											ECS();
-	void									Init();
-	void									DeleteEntity(EntityID id);
+
+																					ECS();
+	void																			Init();
+	void																			DeleteEntity(EntityID id);
+
+	template <typename T>
+	void																			RegisterComponent();
+
+	template <typename T>
+	ComponentPool<T>*																GetPool();
 };
+
+template<typename T>
+inline void ECS::RegisterComponent() {
+	// Why doesn't C++14's unordered_map have a .contains()???
+	bool poolDoesNotExist = ( componentPools.find( typeid( T ) ) == componentPools.end() );
+	if ( poolDoesNotExist ) {
+		componentPools.emplace( typeid(T), std::make_unique<ComponentPool<T>>() );
+	}
+}
+
+template<typename T>
+inline ComponentPool<T>* ECS::GetPool() {
+	auto iterator = componentPools.find( typeid(T) );
+	assert(iterator != componentPools.end());
+	return static_cast<ComponentPool<T> *>( iterator->second.get() );
+}
