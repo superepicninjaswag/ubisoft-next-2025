@@ -19,8 +19,8 @@ public:
 	Vec2						position;
 
 								TextInput(int characterLimit);
-	void						draw() override;
-	void						update();
+	void						Draw() override;
+	void						Update() override;
 
 private:
 	Vec2						points[4];

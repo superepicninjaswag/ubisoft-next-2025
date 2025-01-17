@@ -12,8 +12,8 @@
 */
 class Scene {
 public:
-	virtual void		load() = 0;
-	virtual void		unload() = 0;
-	virtual void		update() = 0;
-	virtual void		render() = 0;
+	virtual void		Load() = 0;
+	virtual void		Unload() = 0;
+	virtual void		Update() = 0;
+	virtual void		Render() = 0;
 };

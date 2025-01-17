@@ -11,7 +11,7 @@ Button::Button() {
 	textOffset.y = -5;
 }
 
-void Button::draw() {
+void Button::Draw() {
 	Vec2 points[4];
 
 	points[0].x = position.x + size.x;
@@ -31,4 +31,8 @@ void Button::draw() {
 	}
 
 	App::Print(position.x + textOffset.x, position.y + textOffset.y, text.c_str());
+}
+
+void Button::Update() {
+
 }

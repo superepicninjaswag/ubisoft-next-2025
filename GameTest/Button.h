@@ -12,5 +12,6 @@ public:
 	Vec2				textOffset;
 
 						Button();
-	void				draw() override;
+	void				Draw() override;
+	void				Update() override;
 };

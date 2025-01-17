@@ -7,28 +7,32 @@ SceneManager::SceneManager() {
 
 }
 
-void SceneManager::update() {
-	currentScene->update();
+void SceneManager::Update() {
+	if ( currentScene ) {
+		currentScene->Update();
+	}
 }
 
-void SceneManager::render() {
-	currentScene->render();
+void SceneManager::Render() {
+	if ( currentScene ) {
+		currentScene->Render();
+	}
 }
 
-void SceneManager::changeScene( std::unique_ptr<Scene> nextScene ) {
+void SceneManager::ChangeScene( std::unique_ptr<Scene> nextScene ) {
 	/*
 	* There might be times where the current scene or next scene is null :(
 	* For example, when the game executable first starts or if I'm working on
 	* some funky debugging with manual scene transitions.
 	*/
 	if ( currentScene ) {
-		currentScene.get()->unload();
+		currentScene.get()->Unload();
 	}
 
 	currentScene = std::move( nextScene );
 
 	if ( currentScene ) {
-		currentScene.get()->load();
+		currentScene.get()->Load();
 	}
 }
 

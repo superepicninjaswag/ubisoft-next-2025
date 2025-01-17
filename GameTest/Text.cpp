@@ -8,6 +8,10 @@ Text::Text() {
 	position.y = 451;
 }
 
-void Text::draw() {
+void Text::Draw() {
 	App::Print(position.x, position.y, text.c_str());
+}
+
+void Text::Update() {
+
 }

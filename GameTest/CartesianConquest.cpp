@@ -27,7 +27,7 @@ void Init() {
 	InputManager::GetInstance();
 
 	// Set initial scene
-	SceneManager::GetInstance().changeScene( std::make_unique<MainMenuScene>() );
+	SceneManager::GetInstance().ChangeScene( std::make_unique<MainMenuScene>() );
 }
 
 //------------------------------------------------------------------------
@@ -35,8 +35,8 @@ void Init() {
 // This will be called at no greater frequency than the value of APP_MAX_FRAME_RATE
 //------------------------------------------------------------------------
 void Update( const float deltaTime ) {
-	InputManager::GetInstance().updateInputs();
-	SceneManager::GetInstance().update();
+	InputManager::GetInstance().UpdateInputs();
+	SceneManager::GetInstance().Update();
 }
 
 //------------------------------------------------------------------------
@@ -44,7 +44,7 @@ void Update( const float deltaTime ) {
 // See App.h 
 //------------------------------------------------------------------------
 void Render() {
-	SceneManager::GetInstance().render();
+	SceneManager::GetInstance().Render();
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.

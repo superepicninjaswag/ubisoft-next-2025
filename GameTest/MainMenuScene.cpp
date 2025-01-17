@@ -1,21 +1,21 @@
 #include "stdafx.h"
 #include "MainMenuScene.h"
 
-void MainMenuScene::load()  {
+void MainMenuScene::Load()  {
 	ecs.Init();
 }
 
-void MainMenuScene::unload() {
+void MainMenuScene::Unload() {
 
 }
 
-void MainMenuScene::update() {
-	ui.update();
+void MainMenuScene::Update() {
+	ui.Update();
 }
 
-void MainMenuScene::render() {
+void MainMenuScene::Render() {
 	shapeRenderer.RenderShapes();
-	ui.draw();
+	ui.Draw();
 }
 
 MainMenuScene::MainMenuScene() : shapeRenderer(ecs) {

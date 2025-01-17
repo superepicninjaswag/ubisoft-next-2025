@@ -26,7 +26,7 @@ TextInput::TextInput(int characterLimit) : text(""), cursor("|"), cursorLocation
 	points[3].y = position.y;
 }
 
-void TextInput::draw() {
+void TextInput::Draw() {
 	for (int i = 0; i < 4; i++) {
 		App::DrawLine(points[ i ].x, points[ i ].y, points[ ( i + 1 ) % 4 ].x, points[ ( i + 1 ) % 4 ].y);
 	}
@@ -46,7 +46,7 @@ void TextInput::draw() {
 	App::Print(position.x, position.y + 6, textWithCursor.c_str());	// I add to the y position to align the text with the box better
 }
 
-void TextInput::update() {
+void TextInput::Update() {
 	blinkingCursorTimer = (blinkingCursorTimer + 1) % 60;
 
 	Vec2 mouse = InputManager::GetInstance().currentMousePosition;

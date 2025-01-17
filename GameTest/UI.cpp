@@ -1,34 +1,32 @@
 #include "stdafx.h"
 #include "UI.h"
 
-void UI::draw() {
+void UI::Draw() {
 	for ( auto& text : texts ) {
-		text.draw();
+		text.Draw();
 	}
 
 	for ( auto &button : buttons ) {
-		button.draw();
+		button.Draw();
 	}
 
 	for ( auto& textInput : textInputs ) {
-		textInput.draw();
+		textInput.Draw();
 	}
 
-	onUpdate();
+	OnUpdate();
 }
 
-void UI::update() {
-	/*
+void UI::Update() {
 	for (auto& text : texts) {
-		text.update();
+		text.Update();
 	}
 
 	for (auto& button : buttons) {
-		button.update();
+		button.Update();
 	}
-	*/
 
 	for (auto& textInput : textInputs) {
-		textInput.update();
+		textInput.Update();
 	}
 }

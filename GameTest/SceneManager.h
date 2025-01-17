@@ -16,9 +16,9 @@ class SceneManager {
 public:
 	std::unique_ptr<Scene>			currentScene;
 
-	void							render();
-	void							update();
-	void							changeScene( std::unique_ptr<Scene> nextScene );
+	void							Render();
+	void							Update();
+	void							ChangeScene( std::unique_ptr<Scene> nextScene );
 
 	static SceneManager&			GetInstance();
 

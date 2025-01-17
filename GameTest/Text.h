@@ -10,5 +10,6 @@ public:
 	Vec2				position;
 
 						Text();
-	void				draw() override;
+	void				Draw() override;
+	void				Update() override;
 };

@@ -29,7 +29,7 @@ public:
 	std::vector<Button>					buttons;
 	std::vector<TextInput>				textInputs;
 
-	void								draw();
-	void								update();
-	virtual void						onUpdate() = 0;
+	void								Draw();
+	void								Update();
+	virtual void						OnUpdate() = 0;
 };

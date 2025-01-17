@@ -30,7 +30,7 @@ public:
 	Vec2										currentMousePosition;
 	Vec2										previousMousePosition;
 
-	void										updateInputs();
+	void										UpdateInputs();
 	KeyState									GetKeyState(const int key);
 
 	static InputManager&						GetInstance();

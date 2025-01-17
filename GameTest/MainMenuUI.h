@@ -7,5 +7,5 @@ public:
 	TextInput		test;
 
 					MainMenuUI();
-	void			onUpdate();
+	void			OnUpdate() override;
 };

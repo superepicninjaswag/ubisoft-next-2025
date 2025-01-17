@@ -12,7 +12,7 @@ InputManager::InputManager() {
 	}
 }
 
-void InputManager::updateInputs() {
+void InputManager::UpdateInputs() {
 	previousMousePosition = currentMousePosition;
 	App::GetMousePos(currentMousePosition.x, currentMousePosition.y);
 

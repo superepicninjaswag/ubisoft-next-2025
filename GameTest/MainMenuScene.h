@@ -12,10 +12,10 @@ public:
 	ShapeRenderer			shapeRenderer;
 	MainMenuUI				ui;
 
-	void					load();
-	void					unload();
-	void					update();
-	void					render();
+	void					Load() override;
+	void					Unload() override;
+	void					Update() override;
+	void					Render() override;
 
 							MainMenuScene();
 };
