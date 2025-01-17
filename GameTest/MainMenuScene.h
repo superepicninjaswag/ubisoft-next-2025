@@ -8,12 +8,14 @@
 
 class MainMenuScene : public Scene {
 public:
-	ECS ecs;
-	ShapeRenderer shapeRenderer();
-	MainMenuUI ui;
+	ECS						ecs;
+	ShapeRenderer			shapeRenderer;
+	MainMenuUI				ui;
 
 	void					load();
 	void					unload();
 	void					update();
 	void					render();
+
+							MainMenuScene();
 };
