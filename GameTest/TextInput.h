@@ -23,10 +23,14 @@ public:
 	void						Update() override;
 
 private:
+	std::vector<int>			acceptableCharacters;
 	Vec2						points[4];
-	int							cursorLocation;
-	int							blinkingCursorTimer;
 	int							characterLimit;
 	bool						focused;
-	std::vector<int>			acceptableCharacters;
+
+	int							cursorLocation;
+	int							blinkingCursorTimer;
+
+	int							numUpdatesKeyHasBeenHeld;
+	const int					updatesToWaitBeforeRepeat = 20;
 };
