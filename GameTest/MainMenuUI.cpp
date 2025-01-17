@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "MainMenuUI.h"
+#include "SceneManager.h"
+#include "DevSandboxScene.h"
 
 MainMenuUI::MainMenuUI() {
 	// Game title
@@ -29,9 +31,12 @@ MainMenuUI::MainMenuUI() {
 void MainMenuUI::OnUpdate() {
 	if ( !uiEventQueue.empty() ) {
 		for ( auto& event : uiEventQueue ) {
-			if ( event.uiElementName == "exit" && event.eventType == EventType::Click) {
+			if ( event.uiElementName == "play" && event.eventType == EventType::Click ) {
+				SceneManager::GetInstance().ChangeScene( std::make_unique<DevSandboxScene>() );
+			} else if ( event.uiElementName == "exit" && event.eventType == EventType::Click ) {
 				glutLeaveMainLoop();
 			}
 		}
+		uiEventQueue.clear();
 	}
 }
