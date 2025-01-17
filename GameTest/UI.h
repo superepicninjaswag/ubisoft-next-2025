@@ -3,6 +3,7 @@
 #include "Button.h"
 #include "Text.h"
 #include "TextInput.h"
+#include "UIEvent.h"
 #include <vector>
 
 /*
@@ -22,7 +23,10 @@ public:
 	std::vector<Button>					buttons;
 	std::vector<TextInput>				textInputs;
 
+	static std::vector<UIEvent>			uiEventQueue;
+
 	void								Draw();
 	void								Update();
 	virtual void						OnUpdate() = 0;
+	void								ShutDown();
 };

@@ -201,6 +201,7 @@
     <ClInclude Include="EntityID.h" />
     <ClInclude Include="ComponentPool.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="UIEvent.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
@@ -249,6 +250,7 @@
     </ClCompile>
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
+    <ClCompile Include="UIEvent.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

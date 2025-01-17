@@ -2,11 +2,11 @@
 #include "MainMenuScene.h"
 
 void MainMenuScene::Load()  {
-	ecs.Init();
+
 }
 
 void MainMenuScene::Unload() {
-
+	ui.ShutDown();
 }
 
 void MainMenuScene::Update() {
@@ -14,10 +14,9 @@ void MainMenuScene::Update() {
 }
 
 void MainMenuScene::Render() {
-	shapeRenderer.RenderShapes();
 	ui.Draw();
 }
 
-MainMenuScene::MainMenuScene() : shapeRenderer(ecs) {
+MainMenuScene::MainMenuScene() {
 
 }

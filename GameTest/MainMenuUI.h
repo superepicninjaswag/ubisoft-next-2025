@@ -4,8 +4,6 @@
 
 class MainMenuUI : public UI {
 public:
-	TextInput		test;
-
 					MainMenuUI();
 	void			OnUpdate() override;
 };

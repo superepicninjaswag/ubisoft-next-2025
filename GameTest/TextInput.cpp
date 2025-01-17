@@ -50,7 +50,7 @@ void TextInput::Update() {
 	InputManager& im = InputManager::GetInstance();
 	blinkingCursorTimer = (blinkingCursorTimer + 1) % 60;
 
-	Vec2 mouse = InputManager::GetInstance().currentMousePosition;
+	Vec2 mouse = im.currentMousePosition;
 	Vec2& topLeft = points[1];
 	Vec2& bottomRight = points[3];
 	bool withinBox = mouse.x >= topLeft.x && mouse.x <= bottomRight.x && mouse.y <= topLeft.y && mouse.y >= bottomRight.y;

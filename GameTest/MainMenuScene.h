@@ -8,8 +8,6 @@
 
 class MainMenuScene : public Scene {
 public:
-	ECS						ecs;
-	ShapeRenderer			shapeRenderer;
 	MainMenuUI				ui;
 
 	void					Load() override;
