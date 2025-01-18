@@ -9,8 +9,9 @@ class PhysicsManager {
 public:
 	ECS&							ecs;
 	std::vector<Collision>			collisions;
+	const float						timeStep;
 
 									PhysicsManager(ECS &ecs);
 
-	void							Integrate(const float deltaTime);
+	void							Integrate();
 };

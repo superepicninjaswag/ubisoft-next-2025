@@ -40,7 +40,7 @@ void DevSandboxScene::Unload() {
 void DevSandboxScene::Update() {
 	ui.Update();
 	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->AddForce( Vec2(0.0f, -9000.8f) );
-	pm.Integrate(((1.0f / APP_MAX_FRAME_RATE)));
+	pm.Integrate();
 }
 
 void DevSandboxScene::Render() {

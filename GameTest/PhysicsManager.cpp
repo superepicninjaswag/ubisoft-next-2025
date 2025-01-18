@@ -2,7 +2,7 @@
 
 #include "PhysicsManager.h"
 
-PhysicsManager::PhysicsManager(ECS &ecs) : ecs(ecs) {
+PhysicsManager::PhysicsManager(ECS &ecs) : ecs(ecs), timeStep( (1.0f / APP_MAX_FRAME_RATE) ) {
 
 }
 
@@ -11,7 +11,7 @@ PhysicsManager::PhysicsManager(ECS &ecs) : ecs(ecs) {
 * Comments are a little excessive for this function because I wanted to make sure I didn't mess up
 * and also wanted to keep track of everything happening
 */
-void PhysicsManager::Integrate(const float deltaTime) {
+void PhysicsManager::Integrate() {
 	ComponentPool<PhysicsBodyComponent>& bodies = *ecs.GetPool<PhysicsBodyComponent>();
 	ComponentPool<TransformComponent>& transforms = *ecs.GetPool<TransformComponent>();
 
@@ -24,17 +24,17 @@ void PhysicsManager::Integrate(const float deltaTime) {
 
 			if (body.inverseMass > 0.0f) {
 				// Update position based on current velocity
-				transform.position += body.velocity.Scale( deltaTime );
+				transform.position += body.velocity.Scale( timeStep );
 
 				// Calculate new acceleration based on forces currently acting on body
 				body.acceleration.Zero();
 				body.acceleration += body.forceAccumulation.Scale( body.inverseMass );
 
 				// Update velocity using new acceleration
-				body.velocity += body.acceleration.Scale( deltaTime );
+				body.velocity += body.acceleration.Scale( timeStep );
 
 				// Apply damping to simulate "drag"
-				body.velocity = body.velocity.Scale( powf( body.damping, deltaTime ) );
+				body.velocity = body.velocity.Scale( powf( body.damping, timeStep ) );
 
 				// Force is only applied as an impulse, so zero it out.
 				body.forceAccumulation.Zero();

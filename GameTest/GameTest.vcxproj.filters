@@ -84,6 +84,9 @@
     <ClCompile Include="PhysicsManager.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -187,6 +190,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsManager.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
       <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
