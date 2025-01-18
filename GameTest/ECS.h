@@ -38,6 +38,9 @@ public:
 
 	template <typename T>
 	ComponentPool<T>*																GetPool();
+
+	template<typename FirstType, typename SecondType>
+	bool																			HasAllComponents( EntityID id );
 };
 
 template<typename T>
@@ -54,4 +57,12 @@ inline ComponentPool<T>* ECS::GetPool() {
 	auto iterator = componentPools.find( typeid(T) );
 	assert(iterator != componentPools.end());
 	return static_cast<ComponentPool<T> *>( iterator->second.get() );
+}
+
+template<typename FirstType, typename SecondType>
+inline bool ECS::HasAllComponents( EntityID id ) {
+	ComponentPool<FirstType>* firstPool = GetPool<FirstType>();
+	ComponentPool<SecondType>* secondPool = GetPool<SecondType>();
+
+	return ( firstPool->Has( id ) ) && ( secondPool->Has( id ) );
 }

@@ -75,7 +75,9 @@
     <ClCompile Include="DevSandboxScene.cpp">
       <Filter>Levels\DevSandbox</Filter>
     </ClCompile>
-    <ClCompile Include="DevSandboxUI.cpp" />
+    <ClCompile Include="DevSandboxUI.cpp">
+      <Filter>Levels\DevSandbox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

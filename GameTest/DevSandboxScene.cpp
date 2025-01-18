@@ -1,8 +1,14 @@
 #include "stdafx.h"
 #include "DevSandboxScene.h"
 
-void DevSandboxScene::Load() {
+EntityID temp;
 
+void DevSandboxScene::Load() {
+	ecs.Init();
+	temp = ecs.idManager.GetNewId();
+
+	ecs.GetPool<ShapeComponent>()->Add(temp);
+	ecs.GetPool<TransformComponent>()->Add(temp);
 }
 
 void DevSandboxScene::Unload() {
@@ -15,6 +21,10 @@ void DevSandboxScene::Update() {
 
 void DevSandboxScene::Render() {
 	ui.Draw();
+
+	if ( ecs.HasAllComponents<ShapeComponent, TransformComponent>(temp) ) {
+		App::DrawLine(0,0,500,500);
+	}
 }
 
 DevSandboxScene::DevSandboxScene() {

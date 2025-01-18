@@ -9,6 +9,7 @@
 
 class DevSandboxScene : public Scene {
 public:
+	ECS						ecs;
 	DevSandboxUI			ui;
 
 	void					Load() override;
