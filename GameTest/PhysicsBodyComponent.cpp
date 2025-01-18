@@ -13,7 +13,7 @@ void PhysicsBodyComponent::Integrate( const float deltaTime, Vec2& position) {
 	{
 		position += velocity.Scale( deltaTime );
 
-		acceleration = gravity;	// We want some gravity by default
+		acceleration.Zero();
 		acceleration += forceAccumulation.Scale( inverseMass );
 
 		velocity += acceleration.Scale( deltaTime );
@@ -29,10 +29,6 @@ void PhysicsBodyComponent::SetMass( const float mass ){
 	{
 		inverseMass = 1.0f / mass;
 	}
-}
-
-void PhysicsBodyComponent::SetGravity( const float g ) {
-	gravity.y = -g;
 }
 
 void PhysicsBodyComponent::SetDamping( const float d ) {

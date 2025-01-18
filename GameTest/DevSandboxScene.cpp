@@ -3,6 +3,11 @@
 
 EntityID temp;
 
+
+DevSandboxScene::DevSandboxScene() : sr(ecs), pm(ecs) {
+
+}
+
 void DevSandboxScene::Load() {
 	ecs.Init();
 	temp = ecs.idManager.GetNewId();
@@ -24,7 +29,6 @@ void DevSandboxScene::Load() {
 	ecs.GetPool<TransformComponent>()->Get(temp)->position.Set( 500, 500 );
 
 	ecs.GetPool<PhysicsBodyComponent>()->Add(temp);
-	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->SetGravity( 0.0f );
 	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->SetDamping( 0.98f );
 	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->SetMass( 1000.0f );
 }
@@ -48,6 +52,3 @@ void DevSandboxScene::Render() {
 	}
 }
 
-DevSandboxScene::DevSandboxScene() : sr(ecs) {
-
-}
