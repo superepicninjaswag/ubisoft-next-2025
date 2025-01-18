@@ -204,6 +204,7 @@
     <ClInclude Include="DevSandboxScene.h" />
     <ClInclude Include="DevSandboxUI.h" />
     <ClInclude Include="ComponentPoolBase.h" />
+    <ClInclude Include="PhysicsBodyComponent.h" />
     <ClInclude Include="UIEvent.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Scene.h" />
@@ -241,6 +242,7 @@
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MainMenuUI.cpp" />
     <ClCompile Include="miniaudio\miniaudio.cpp" />
+    <ClCompile Include="PhysicsBodyComponent.cpp" />
     <ClCompile Include="ShapeComponent.cpp" />
     <ClCompile Include="ShapeRenderer.cpp" />
     <ClCompile Include="SceneManager.cpp" />

@@ -78,6 +78,9 @@
     <ClCompile Include="DevSandboxUI.cpp">
       <Filter>Levels\DevSandbox</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicsBodyComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -176,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="ComponentPoolBase.h">
       <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsBodyComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

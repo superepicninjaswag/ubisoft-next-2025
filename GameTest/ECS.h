@@ -41,6 +41,9 @@ public:
 
 	template<typename FirstType, typename SecondType>
 	bool																			HasAllComponents( EntityID id );
+
+	template<typename FirstType, typename SecondType, typename ThirdType>
+	bool																			HasAllComponents( EntityID id );
 };
 
 template<typename T>
@@ -65,4 +68,13 @@ inline bool ECS::HasAllComponents( EntityID id ) {
 	ComponentPool<SecondType>* secondPool = GetPool<SecondType>();
 
 	return ( firstPool->Has( id ) ) && ( secondPool->Has( id ) );
+}
+
+template<typename FirstType, typename SecondType, typename ThirdType>
+inline bool ECS::HasAllComponents( EntityID id ) {
+	ComponentPool<FirstType>* firstPool = GetPool<FirstType>();
+	ComponentPool<SecondType>* secondPool = GetPool<SecondType>();
+	ComponentPool<ThirdType>* thirdPool = GetPool<ThirdType>();
+
+	return ( firstPool->Has( id ) ) && ( secondPool->Has( id ) ) && ( thirdPool->Has( id ) );
 }

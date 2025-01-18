@@ -11,6 +11,7 @@ class DevSandboxScene : public Scene {
 public:
 	ECS						ecs;
 	DevSandboxUI			ui;
+	ShapeRenderer			sr;
 
 	void					Load() override;
 	void					Unload() override;
