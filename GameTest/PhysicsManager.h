@@ -5,7 +5,9 @@
 
 class PhysicsManager {
 public:
-	ECS& ecs;
+	ECS&			ecs;
 
-	PhysicsManager(ECS &ecs);
+					PhysicsManager(ECS &ecs);
+
+	void			Integrate(const float deltaTime);
 };

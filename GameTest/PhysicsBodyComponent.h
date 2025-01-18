@@ -4,17 +4,15 @@
 #include "./Vec2.h"
 
 struct PhysicsBodyComponent {
-						PhysicsBodyComponent();
-
-	void				Integrate( const float deltaTime, Vec2& position );
-	void				SetMass( const float mass);
-	void				SetDamping( const float damping );
-	void				AddForce( const Vec2 force );
-private:
 	Vec2				velocity;
 	Vec2				acceleration;
 	Vec2				forceAccumulation;
 
 	float				damping;
 	float				inverseMass;
+
+						PhysicsBodyComponent();
+
+	void				SetMass( const float mass);
+	void				AddForce( const Vec2 force );
 };

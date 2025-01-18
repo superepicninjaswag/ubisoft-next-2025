@@ -29,8 +29,8 @@ void DevSandboxScene::Load() {
 	ecs.GetPool<TransformComponent>()->Get(temp)->position.Set( 500, 500 );
 
 	ecs.GetPool<PhysicsBodyComponent>()->Add(temp);
-	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->SetDamping( 0.98f );
-	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->SetMass( 1000.0f );
+	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->damping = 0.999f;
+	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->SetMass( 100.0f );
 }
 
 void DevSandboxScene::Unload() {
@@ -39,8 +39,8 @@ void DevSandboxScene::Unload() {
 
 void DevSandboxScene::Update() {
 	ui.Update();
-
-	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->Integrate(((1.0f / APP_MAX_FRAME_RATE)), ecs.GetPool<TransformComponent>()->Get(temp)->position);
+	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->AddForce( Vec2(0.0f, -9000.8f) );
+	pm.Integrate(((1.0f / APP_MAX_FRAME_RATE)));
 }
 
 void DevSandboxScene::Render() {
