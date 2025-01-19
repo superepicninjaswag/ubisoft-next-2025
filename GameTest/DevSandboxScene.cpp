@@ -4,7 +4,6 @@
 
 
 std::vector<EntityID> circles;
-int updates = 0;
 
 DevSandboxScene::DevSandboxScene() : sr(ecs), pm(ecs) {
 
@@ -12,6 +11,30 @@ DevSandboxScene::DevSandboxScene() : sr(ecs), pm(ecs) {
 
 void DevSandboxScene::Load() {
 	ecs.Init();
+
+	// Test circle
+	circles.push_back(ecs.idManager.GetNewId());
+
+	ecs.GetPool<TransformComponent>()->Add(circles.back());
+	ecs.GetPool<TransformComponent>()->Get(circles.back())->position.Set(500, 500);
+
+	ecs.GetPool<ShapeComponent>()->Add(circles.back(), 20.0f);
+
+	ecs.GetPool<PhysicsBodyComponent>()->Add(circles.back());
+	ecs.GetPool<PhysicsBodyComponent>()->Get(circles.back())->damping = 0.9f;
+	ecs.GetPool<PhysicsBodyComponent>()->Get(circles.back())->SetMass(20.0f);
+
+	// Test circle
+	circles.push_back(ecs.idManager.GetNewId());
+
+	ecs.GetPool<TransformComponent>()->Add(circles.back());
+	ecs.GetPool<TransformComponent>()->Get(circles.back())->position.Set(400, 500);
+
+	ecs.GetPool<ShapeComponent>()->Add(circles.back(), 20.0f);
+
+	ecs.GetPool<PhysicsBodyComponent>()->Add(circles.back());
+	ecs.GetPool<PhysicsBodyComponent>()->Get(circles.back())->damping = 0.9f;
+	ecs.GetPool<PhysicsBodyComponent>()->Get(circles.back())->SetMass(20.0f);
 
 	// Test line 1
 	EntityID temp2 = ecs.idManager.GetNewId();
@@ -45,6 +68,17 @@ void DevSandboxScene::Load() {
 
 	ecs.GetPool<PhysicsBodyComponent>()->Add(temp4);
 	ecs.GetPool<PhysicsBodyComponent>()->Get(temp4)->damping = 0.999f;
+
+	// Test line 4
+	EntityID temp5 = ecs.idManager.GetNewId();
+
+	ecs.GetPool<TransformComponent>()->Add(temp5);
+	ecs.GetPool<TransformComponent>()->Get(temp5)->position.Set(0, 0);
+
+	ecs.GetPool<ShapeComponent>()->Add(temp5, Vec2(700.0f, 350.0f), Vec2(700.0f, 750.0f));
+
+	ecs.GetPool<PhysicsBodyComponent>()->Add(temp5);
+	ecs.GetPool<PhysicsBodyComponent>()->Get(temp5)->damping = 0.999f;
 }
 
 void DevSandboxScene::Unload() {
@@ -52,24 +86,6 @@ void DevSandboxScene::Unload() {
 }
 
 void DevSandboxScene::Update() {
-	if (updates == 60) {
-		circles.push_back( ecs.idManager.GetNewId() ) ;
-		updates = 0;
-
-		// Test circle
-		ecs.GetPool<TransformComponent>()->Add(circles.back());
-		ecs.GetPool<TransformComponent>()->Get(circles.back())->position.Set(500, 500);
-
-		ecs.GetPool<ShapeComponent>()->Add(circles.back(), 10.0f);
-
-		ecs.GetPool<PhysicsBodyComponent>()->Add(circles.back());
-		ecs.GetPool<PhysicsBodyComponent>()->Get(circles.back())->damping = 0.999f;
-		ecs.GetPool<PhysicsBodyComponent>()->Get(circles.back())->SetMass(20.0f);
-	}
-	else {
-		updates++;
-	}
-
 	for ( auto& id : circles ) {
 		ecs.GetPool<PhysicsBodyComponent>()->Get(id)->AddForce(Vec2(0.0f, -9000.8f));
 	}

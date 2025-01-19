@@ -8,7 +8,7 @@
 * keep track of what's happening and why
 */
 
-PhysicsManager::PhysicsManager(ECS &ecs) : ecs(ecs), timeStep( (1.0f / APP_MAX_FRAME_RATE) ) {
+PhysicsManager::PhysicsManager( ECS &ecs ) : ecs( ecs ), timeStep( (1.0f / APP_MAX_FRAME_RATE) ) {
 
 }
 
@@ -42,7 +42,7 @@ void PhysicsManager::DetectCollisions() {
 						}
 
 						collisions.emplace_back();
-						collisions.back().restitution = 0.99f;
+						collisions.back().restitution = 0.7f;
 						collisions.back().penetration = radiusA + radiusB - midLine.Length();
 
 						midLine.Normalize();
@@ -87,7 +87,7 @@ void PhysicsManager::DetectCollisions() {
 							// No collision
 						} else {
 							collisions.emplace_back();
-							collisions.back().restitution = 0.99f;
+							collisions.back().restitution = 0.8f;
 
 							Vec2 normal = p3 - closestPoint;
 							collisions.back().penetration = radius - normal.Length();
@@ -139,7 +139,7 @@ void PhysicsManager::ResolveCollisions() {
 			Vec2 impulsePerUnitOfInverseMass = collision.collisionNormal.Scale(impulse);
 
 			bodies.Get(entityA)->SetVelocity(bodies.Get(entityA)->velocity + (impulsePerUnitOfInverseMass.Scale(bodies.Get(entityA)->inverseMass)));
-			bodies.Get(entityB)->SetVelocity(bodies.Get(entityB)->velocity + (impulsePerUnitOfInverseMass.Scale(bodies.Get(entityB)->inverseMass)));
+			bodies.Get(entityB)->SetVelocity(bodies.Get(entityB)->velocity - (impulsePerUnitOfInverseMass.Scale(bodies.Get(entityB)->inverseMass)));
 
 			// Next we resolve any interpenetration
 			// First, are they even penetrating? There is a small chance they are just barely touching
