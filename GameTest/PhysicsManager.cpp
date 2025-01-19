@@ -23,7 +23,7 @@ void PhysicsManager::ResolveCollisions() {
 		float seperatingVelocity = relativeVelocity.DotProduct( collision.collisionNormal );
 
 		// They are already moving apart (which can happen if another collision resolved and modified one or more of these bodies)
-		if ( seperatingVelocity > 0 ) {
+		if ( seperatingVelocity > 0.0f ) {
 			continue;
 		}
 
@@ -35,7 +35,7 @@ void PhysicsManager::ResolveCollisions() {
 		float totalInverseMass = bodies.Get(entityA)->inverseMass + bodies.Get(entityB)->inverseMass;
 
 		// But if both have infinite mass (which my collision detector should ignore), we don't change either's velocity.
-		if ( totalInverseMass <= 0 ) {
+		if ( totalInverseMass <= 0.0f ) {
 			continue;
 		}
 
@@ -45,7 +45,16 @@ void PhysicsManager::ResolveCollisions() {
 		bodies.Get(entityA)->velocity = bodies.Get( entityA )->velocity + ( impulsePerUnitOfInverseMass.Scale( bodies.Get( entityA )->inverseMass ) );
 		bodies.Get(entityB)->velocity = bodies.Get( entityB )->velocity + ( impulsePerUnitOfInverseMass.Scale( -( bodies.Get( entityB )->inverseMass ) ) );
 
-		// Now we resolve the interpenetration
+		// Next we resolve any interpenetration
+		// First, are they even penetrating? There is a small chance they are just barely touching
+		if ( collision.penetration <= 0.0f ) {
+			continue;
+		}
+
+		// Objects displacement is proportional to mass (e.g. A boulder bouncing off a mountain)
+		Vec2 displacementPerInverseMass = collision.collisionNormal.Scale( collision.penetration * totalInverseMass );
+		transforms.Get( entityA )->position = transforms.Get( entityA )->position + displacementPerInverseMass.Scale( bodies.Get( entityA )->inverseMass );
+		transforms.Get( entityB )->position = transforms.Get( entityB )->position + displacementPerInverseMass.Scale( bodies.Get( entityB )->inverseMass );
 	}
 	collisions.clear();
 }
