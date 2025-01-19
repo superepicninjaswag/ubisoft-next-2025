@@ -54,5 +54,5 @@ void Render() {
 // Just before the app exits.
 //------------------------------------------------------------------------
 void Shutdown() {
-
+	NetworkManager::GetInstance().Shutdown();
 }
