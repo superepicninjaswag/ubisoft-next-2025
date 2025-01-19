@@ -205,6 +205,8 @@
     <ClInclude Include="DevSandboxUI.h" />
     <ClInclude Include="ComponentPoolBase.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="NetworkManager.h" />
+    <ClInclude Include="LobbyScene.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PhysicsBodyComponent.h" />
     <ClInclude Include="UIEvent.h" />
@@ -242,9 +244,11 @@
     <ClCompile Include="EntityID.cpp" />
     <ClCompile Include="IDManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LobbyScene.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MainMenuUI.cpp" />
     <ClCompile Include="miniaudio\miniaudio.cpp" />
+    <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="PhysicsBodyComponent.cpp" />
     <ClCompile Include="ShapeComponent.cpp" />
     <ClCompile Include="ShapeRenderer.cpp" />

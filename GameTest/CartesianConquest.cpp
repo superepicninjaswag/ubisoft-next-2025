@@ -11,9 +11,8 @@
 #include "app\app.h"
 //------------------------------------------------------------------------
 #include "SceneManager.h"
-#include "ECS.h"
-#include "ShapeRenderer.h"
 #include "InputManager.h"
+#include "NetworkManager.h"
 
 #include "MainMenuScene.h"
 #include "DevSandboxScene.h"
@@ -26,9 +25,10 @@ void Init() {
 	// Singleton creation via initial call to GetInstance
 	SceneManager::GetInstance();
 	InputManager::GetInstance();
+	NetworkManager::GetInstance();
 
 	// Set initial scene
-	SceneManager::GetInstance().ChangeScene( std::make_unique<DevSandboxScene>() );
+	SceneManager::GetInstance().ChangeScene( std::make_unique<MainMenuScene>() );
 }
 
 //------------------------------------------------------------------------
@@ -36,8 +36,10 @@ void Init() {
 // This will be called at no greater frequency than the value of APP_MAX_FRAME_RATE
 //------------------------------------------------------------------------
 void Update( const float deltaTime ) {
+	// Handle incoming
 	InputManager::GetInstance().UpdateInputs();
 	SceneManager::GetInstance().Update();
+	// Send outgoing
 }
 
 //------------------------------------------------------------------------

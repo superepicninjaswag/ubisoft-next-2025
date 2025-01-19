@@ -87,6 +87,12 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="LobbyScene.cpp">
+      <Filter>Levels\Lobby</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkManager.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -195,6 +201,12 @@
     <ClInclude Include="Collision.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Levels\Lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkManager.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -244,6 +256,12 @@
     </Filter>
     <Filter Include="Levels\DevSandbox">
       <UniqueIdentifier>{96e707b4-f3b2-4a1e-9b3d-c8f232f0655d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Levels\Lobby">
+      <UniqueIdentifier>{e82776fb-2210-4827-9fdd-82b52de8837d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Networking">
+      <UniqueIdentifier>{8e7dec1d-fd05-4b18-97b2-d3f59180f0cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
