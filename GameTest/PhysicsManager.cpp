@@ -12,6 +12,12 @@ PhysicsManager::PhysicsManager( ECS &ecs ) : ecs( ecs ), timeStep( (1.0f / APP_M
 
 }
 
+void PhysicsManager::Update() {
+	DetectCollisions();
+	ResolveCollisions();
+	Integrate();
+}
+
 void PhysicsManager::DetectCollisions() {
 	ComponentPool<ShapeComponent>& colliders = *ecs.GetPool<ShapeComponent>();
 	ComponentPool<TransformComponent>& transforms = *ecs.GetPool<TransformComponent>();

@@ -42,7 +42,7 @@ void DevSandboxScene::Load() {
 	ecs.GetPool<TransformComponent>()->Add(temp2);
 	ecs.GetPool<TransformComponent>()->Get(temp2)->position.Set(0, 0);
 
-	ecs.GetPool<ShapeComponent>()->Add(temp2, Vec2( 100.0f, 100.0f ), Vec2( 700.0f, 350.0f ));
+	ecs.GetPool<ShapeComponent>()->Add(temp2, Vec2( 100.0f, 100.0f ), Vec2( 700.0f, 100.0f ));
 
 	ecs.GetPool<PhysicsBodyComponent>()->Add(temp2);
 	ecs.GetPool<PhysicsBodyComponent>()->Get(temp2)->damping = 0.999f;
@@ -75,7 +75,7 @@ void DevSandboxScene::Load() {
 	ecs.GetPool<TransformComponent>()->Add(temp5);
 	ecs.GetPool<TransformComponent>()->Get(temp5)->position.Set(0, 0);
 
-	ecs.GetPool<ShapeComponent>()->Add(temp5, Vec2(700.0f, 350.0f), Vec2(700.0f, 750.0f));
+	ecs.GetPool<ShapeComponent>()->Add(temp5, Vec2(700.0f, 100.0f), Vec2(700.0f, 750.0f));
 
 	ecs.GetPool<PhysicsBodyComponent>()->Add(temp5);
 	ecs.GetPool<PhysicsBodyComponent>()->Get(temp5)->damping = 0.999f;
@@ -91,10 +91,7 @@ void DevSandboxScene::Update() {
 	}
 
 	ui.Update();
-
-	pm.Integrate();
-	pm.DetectCollisions();
-	pm.ResolveCollisions();
+	pm.Update();
 }
 
 void DevSandboxScene::Render() {
