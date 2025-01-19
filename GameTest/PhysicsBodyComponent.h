@@ -13,6 +13,7 @@ struct PhysicsBodyComponent {
 
 						PhysicsBodyComponent();
 
-	void				SetMass( const float mass);
+	void				SetVelocity( const Vec2 a );
+	void				SetMass( const float mass );
 	void				AddForce( const Vec2 force );
 };

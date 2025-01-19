@@ -2,12 +2,53 @@
 
 #include "PhysicsManager.h"
 
+
+/*
+* Comments are a little excessive here because it makes it easier for me to
+* keep track of what's happening and why
+*/
+
 PhysicsManager::PhysicsManager(ECS &ecs) : ecs(ecs), timeStep( (1.0f / APP_MAX_FRAME_RATE) ) {
 
 }
 
 void PhysicsManager::DetectCollisions() {
+	ComponentPool<ShapeComponent>& colliders = *ecs.GetPool<ShapeComponent>();
+	ComponentPool<TransformComponent>& transforms = *ecs.GetPool<TransformComponent>();
 
+	// Naive check each collider pair for now
+	for ( int i = 0; i < colliders.dense.size() - 1; i++ ) {
+		EntityID entityA = colliders.mirror[i];
+
+		if ( ecs.HasAllComponents<ShapeComponent, TransformComponent>( entityA ) ) {
+			for ( int j = i + 1; j < colliders.dense.size(); j++ ) {
+				EntityID entityB = colliders.mirror[j];
+
+				if ( ecs.HasAllComponents<ShapeComponent, TransformComponent>( entityB ) ) {
+					// Only handle circle circle collision for now
+					if ( colliders.Get( entityA )->type == colliders.Get( entityB )->type && colliders.Get(entityA)->type == Shape::CIRCLE ) {
+						Vec2 midLine = transforms.Get(entityA)->position - transforms.Get(entityB)->position;
+						float radiusA = colliders.Get(entityA)->points[0].Length();
+						float radiusB = colliders.Get(entityA)->points[0].Length();
+						if ( midLine.Length() <= 0 || midLine.Length() >= radiusA + radiusB ) {
+							continue;
+						}
+
+
+						collisions.emplace_back();
+						collisions.back().restitution = 0.99f;
+						collisions.back().penetration = radiusA + radiusB - midLine.Length();
+
+						midLine.Normalize();
+						collisions.back().collisionNormal = midLine;
+
+						collisions.back().collidingBodies[0] = entityA;
+						collisions.back().collidingBodies[1] = entityB;
+					}
+				}
+			}
+		}
+	}
 }
 
 void PhysicsManager::ResolveCollisions() {
@@ -42,8 +83,8 @@ void PhysicsManager::ResolveCollisions() {
 		float impulse = deltaVelocity / totalInverseMass;
 		Vec2 impulsePerUnitOfInverseMass = collision.collisionNormal.Scale( impulse );
 
-		bodies.Get(entityA)->velocity = bodies.Get( entityA )->velocity + ( impulsePerUnitOfInverseMass.Scale( bodies.Get( entityA )->inverseMass ) );
-		bodies.Get(entityB)->velocity = bodies.Get( entityB )->velocity + ( impulsePerUnitOfInverseMass.Scale( -( bodies.Get( entityB )->inverseMass ) ) );
+		bodies.Get( entityA )->SetVelocity( bodies.Get( entityA )->velocity + ( impulsePerUnitOfInverseMass.Scale( bodies.Get( entityA )->inverseMass ) ) );
+		bodies.Get( entityB )->SetVelocity( bodies.Get( entityB )->velocity + ( impulsePerUnitOfInverseMass.Scale( bodies.Get( entityB )->inverseMass ) ) );
 
 		// Next we resolve any interpenetration
 		// First, are they even penetrating? There is a small chance they are just barely touching
@@ -59,11 +100,6 @@ void PhysicsManager::ResolveCollisions() {
 	collisions.clear();
 }
 
-
-/* 
-* Comments are a little excessive for this function because it makes it easier for me to
-* keep track of what's happening and why
-*/
 void PhysicsManager::Integrate() {
 	ComponentPool<PhysicsBodyComponent>& bodies = *ecs.GetPool<PhysicsBodyComponent>();
 	ComponentPool<TransformComponent>& transforms = *ecs.GetPool<TransformComponent>();

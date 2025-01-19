@@ -5,6 +5,10 @@ PhysicsBodyComponent::PhysicsBodyComponent() : damping(1.0f), inverseMass(0.0f) 
 
 }
 
+void PhysicsBodyComponent::SetVelocity(const Vec2 a) {
+	velocity = a;
+}
+
 void PhysicsBodyComponent::SetMass( const float mass ){
 	if (mass != 0.0f)
 	{

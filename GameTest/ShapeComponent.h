@@ -3,8 +3,15 @@
 
 #include "./Vec2.h"
 
-struct ShapeComponent {
-	std::vector<Vec2> points;
+enum class Shape {
+	CIRCLE,
+	LINE
+};
 
-	ShapeComponent();
+struct ShapeComponent {
+	Shape						type;
+	std::vector<Vec2>			points;
+
+								ShapeComponent( const float radius );
+								ShapeComponent( const Vec2 a, const Vec2 b );
 };

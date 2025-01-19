@@ -2,7 +2,7 @@
 #include "DevSandboxScene.h"
 
 EntityID temp;
-
+EntityID temp2;
 
 DevSandboxScene::DevSandboxScene() : sr(ecs), pm(ecs) {
 
@@ -10,27 +10,29 @@ DevSandboxScene::DevSandboxScene() : sr(ecs), pm(ecs) {
 
 void DevSandboxScene::Load() {
 	ecs.Init();
+
+	// Test circle 1
 	temp = ecs.idManager.GetNewId();
 
-	ecs.GetPool<ShapeComponent>()->Add(temp);
-	ShapeComponent* shape = ecs.GetPool<ShapeComponent>()->Get(temp);
-	shape->points = {
-		Vec2(50, 0),               // Point at 0 degrees
-		Vec2(35.36f, 35.36f),      // Point at 45 degrees
-		Vec2(0, 50),               // Point at 90 degrees
-		Vec2(-35.36f, 35.36f),     // Point at 135 degrees
-		Vec2(-50, 0),              // Point at 180 degrees
-		Vec2(-35.36f, -35.36f),    // Point at 225 degrees
-		Vec2(0, -50),              // Point at 270 degrees
-		Vec2(35.36f, -35.36f)      // Point at 315 degrees
-	};
-
 	ecs.GetPool<TransformComponent>()->Add(temp);
-	ecs.GetPool<TransformComponent>()->Get(temp)->position.Set( 500, 500 );
+	ecs.GetPool<TransformComponent>()->Get(temp)->position.Set(500, 500);
+
+    ecs.GetPool<ShapeComponent>()->Add(temp, 10.0f);
 
 	ecs.GetPool<PhysicsBodyComponent>()->Add(temp);
 	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->damping = 0.999f;
-	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->SetMass( 100.0f );
+	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->SetMass( 20.0f );
+
+	// Test circle 2
+	temp2 = ecs.idManager.GetNewId();
+
+	ecs.GetPool<TransformComponent>()->Add(temp2);
+	ecs.GetPool<TransformComponent>()->Get(temp2)->position.Set(490, 250);
+
+	ecs.GetPool<ShapeComponent>()->Add(temp2, 10.0f);
+
+	ecs.GetPool<PhysicsBodyComponent>()->Add(temp2);
+	ecs.GetPool<PhysicsBodyComponent>()->Get(temp2)->damping = 0.999f;
 }
 
 void DevSandboxScene::Unload() {
@@ -41,16 +43,13 @@ void DevSandboxScene::Update() {
 	ui.Update();
 	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->AddForce( Vec2(0.0f, -9000.8f) );
 
-	pm.ResolveCollisions();
 	pm.Integrate();
+	pm.DetectCollisions();
+	pm.ResolveCollisions();
 }
 
 void DevSandboxScene::Render() {
 	ui.Draw();
 	sr.RenderShapes();
-
-	if ( ecs.HasAllComponents<ShapeComponent, TransformComponent, PhysicsBodyComponent>(temp) ) {
-		App::DrawLine(0,0,500,500);
-	}
 }
 

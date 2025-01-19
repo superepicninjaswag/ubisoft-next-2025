@@ -21,13 +21,7 @@ void ShapeRenderer::RenderShapes() {
 
 			EntityID currentEntity = shapes->mirror[i];
 
-			Vec2 scale = transforms->Get(currentEntity)->scale;
-			point1.x *= scale.x;
-			point1.y *= scale.y;
-			point2.x *= scale.x;
-			point2.y *= scale.y;
-
-			// TODO: Rotation
+			// We don't rotate, and scale is baked into ShapeComponent construction
 
 			point1 += transforms->Get(currentEntity)->position;
 			point2 += transforms->Get(currentEntity)->position;
