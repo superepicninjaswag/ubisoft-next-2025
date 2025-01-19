@@ -13,5 +13,7 @@ public:
 
 									PhysicsManager(ECS &ecs);
 
+	void							DetectCollisions();
+	void							ResolveCollisions();
 	void							Integrate();
 };

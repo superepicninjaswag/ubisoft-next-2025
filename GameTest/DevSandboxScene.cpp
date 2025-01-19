@@ -40,6 +40,8 @@ void DevSandboxScene::Unload() {
 void DevSandboxScene::Update() {
 	ui.Update();
 	ecs.GetPool<PhysicsBodyComponent>()->Get(temp)->AddForce( Vec2(0.0f, -9000.8f) );
+
+	pm.ResolveCollisions();
 	pm.Integrate();
 }
 
