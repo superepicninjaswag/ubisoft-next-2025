@@ -10,18 +10,17 @@ void ShapeRenderer::RenderShapes() {
 	ComponentPool<TransformComponent>* transforms = ecs.GetPool<TransformComponent>();
 
 	for (int i = 0; i < shapes->dense.size(); i++) {
-		std::vector<Vec2>& points = shapes->dense[i].points;
+		EntityID currentEntity = shapes->mirror[i];					// Which entity are we drawing?
+		std::vector<Vec2>& points = shapes->dense[i].points;		// Cache it's points
 		for (int j = 0; j < points.size(); j++) {
-			// The last point should connect to the first point
+			// The last point should connect to the first point so we use Modulus
 			int k = (j + 1) % points.size();
 
 			// Don't want to modify so we copy
 			Vec2 point1 = points[j];
 			Vec2 point2 = points[k];
 
-			EntityID currentEntity = shapes->mirror[i];
-
-			// We don't rotate, and scale is baked into ShapeComponent construction
+			// We don't use rotation, and scale is baked into ShapeComponent construction
 
 			point1 += transforms->Get(currentEntity)->position;
 			point2 += transforms->Get(currentEntity)->position;
