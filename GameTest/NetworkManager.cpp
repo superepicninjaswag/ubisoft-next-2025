@@ -110,7 +110,6 @@ void NetworkManager::UpdateLobbyClient() {
 			send(mysocket, buffer.data(), (int) buffer.size(), 0);
 		}
 
-
 		CheckHealth();
 	}
 }
@@ -186,10 +185,11 @@ void NetworkManager::HandleJoinRequest( char* payload, int payloadLength, sockad
 
 void NetworkManager::CheckHealth() {
 	if ( isHost ) {
-		for ( int i = 0, j = connectedPlayers.size(); i <= j && i < connectedPlayers.size(); ) {
+		for ( int i = 0, j = connectedPlayers.size() - 1; i <= j && i < connectedPlayers.size(); ) {
 			if ( updatesSinceLastHealthCheck[i] > 200 ) {
 				std::swap( connectedPlayers[ i ], connectedPlayers[ j ] );
 				connectedPlayers.pop_back();
+				numConnectedPlayers--;
 
 				std::swap( updatesSinceLastHealthCheck[ i ], updatesSinceLastHealthCheck[ j ] );
 				updatesSinceLastHealthCheck.pop_back();
