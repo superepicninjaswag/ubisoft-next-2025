@@ -29,4 +29,6 @@ public:
 	void								Update();
 	virtual void						OnUpdate() = 0;
 	void								ShutDown();
+
+	TextInput*							GetInputByName( std::string name );
 };

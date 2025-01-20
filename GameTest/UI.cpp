@@ -36,3 +36,12 @@ void UI::Update() {
 void UI::ShutDown() {
 	uiEventQueue.clear();
 }
+
+TextInput* UI::GetInputByName( std::string name ) {
+	for ( auto& textInput : textInputs ) {
+		if ( textInput.name == name ) {
+			return &textInput;
+		}
+	}
+	return nullptr;
+}

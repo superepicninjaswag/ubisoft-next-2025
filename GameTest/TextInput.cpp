@@ -2,11 +2,10 @@
 #include "TextInput.h"
 
 
-TextInput::TextInput(int characterLimit) : text(""), cursor("|"), cursorLocation(0), blinkingCursorTimer(0), numUpdatesKeyHasBeenHeld(0), characterLimit(characterLimit), focused(false) {
+TextInput::TextInput(int characterLimit, Vec2 position)
+	: text(""), cursor("|"), cursorLocation(0), blinkingCursorTimer(0), numUpdatesKeyHasBeenHeld(0), characterLimit(characterLimit), focused(false), position(position) {
 	acceptableCharacters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
 							'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-	position.x = 360;
-	position.y = 360;
 
 	// Used when calculating box points too effectively contain text
 	int characterWidthToPixelRatio = 13;
@@ -112,4 +111,18 @@ void TextInput::Update() {
 			numUpdatesKeyHasBeenHeld = 0;
 		}
 	}
+}
+
+bool TextInput::IsNumeric() {
+	if ( text.size() == 0 ) {
+		return false;
+	}
+
+	for ( auto c : text ) {
+		if ( !std::isdigit( c ) ) {
+			return false;
+		}
+	}
+
+	return true;
 }

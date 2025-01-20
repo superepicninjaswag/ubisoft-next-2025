@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="CartesianConquest.cpp" />
+    <ClCompile Include="PlayItAsItLies.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="App\app.cpp">
       <Filter>API</Filter>
@@ -93,6 +93,10 @@
     <ClCompile Include="NetworkManager.cpp">
       <Filter>Networking</Filter>
     </ClCompile>
+    <ClCompile Include="JoinScene.cpp">
+      <Filter>Levels\Join</Filter>
+    </ClCompile>
+    <ClCompile Include="JoinSceneUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -207,6 +211,12 @@
     <ClInclude Include="NetworkManager.h">
       <Filter>Networking</Filter>
     </ClInclude>
+    <ClInclude Include="JoinScene.h">
+      <Filter>Levels\Join</Filter>
+    </ClInclude>
+    <ClInclude Include="JoinSceneUI.h">
+      <Filter>Levels\Join</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -262,6 +272,9 @@
     </Filter>
     <Filter Include="Networking">
       <UniqueIdentifier>{8e7dec1d-fd05-4b18-97b2-d3f59180f0cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Levels\Join">
+      <UniqueIdentifier>{c8050ba2-510e-47ca-8600-4c0c6cc8eb09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

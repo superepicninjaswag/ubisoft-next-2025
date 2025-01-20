@@ -2,6 +2,7 @@
 #include "MainMenuUI.h"
 #include "SceneManager.h"
 #include "LobbyScene.h"
+#include "JoinScene.h"
 
 
 MainMenuUI::MainMenuUI() {
@@ -12,7 +13,7 @@ MainMenuUI::MainMenuUI() {
 	texts.back().position.x = 450.0f;
 	texts.back().position.y = 512.0f;
 
-	// Play button
+	// Host button
 	buttons.emplace_back();
 	buttons.back().name = "host";
 	buttons.back().position.x = 512.0f;
@@ -20,7 +21,7 @@ MainMenuUI::MainMenuUI() {
 	buttons.back().text = "Host";
 	buttons.back().textOffset.x = -18.0f;
 
-	// Exit button
+	// Join button
 	buttons.emplace_back();
 	buttons.back().name = "join";
 	buttons.back().position.x = 512.0f;
@@ -40,8 +41,10 @@ MainMenuUI::MainMenuUI() {
 void MainMenuUI::OnUpdate() {
 	if ( !uiEventQueue.empty() ) {
 		for ( auto& event : uiEventQueue ) {
-			if ( event.uiElementName == "host" && event.eventType == EventType::Click ) {
+			if (        event.uiElementName == "host" && event.eventType == EventType::Click ) {
 				SceneManager::GetInstance().ChangeScene( std::make_unique<LobbyScene>() );
+			} else if ( event.uiElementName == "join" && event.eventType == EventType::Click) {
+				SceneManager::GetInstance().ChangeScene( std::make_unique<JoinScene>() );
 			} else if ( event.uiElementName == "exit" && event.eventType == EventType::Click ) {
 				glutLeaveMainLoop();
 			}

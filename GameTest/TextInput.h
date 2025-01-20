@@ -18,9 +18,10 @@ public:
 	std::string					cursor;
 	Vec2						position;
 
-								TextInput(int characterLimit);
+								TextInput(int characterLimit, Vec2 position);
 	void						Draw() override;
 	void						Update() override;
+	bool						IsNumeric();
 
 private:
 	std::vector<int>			acceptableCharacters;
