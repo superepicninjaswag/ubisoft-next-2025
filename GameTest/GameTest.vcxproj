@@ -207,6 +207,7 @@
     <ClInclude Include="DevSandboxUI.h" />
     <ClInclude Include="ComponentPoolBase.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="LobbySceneUI.h" />
     <ClInclude Include="JoinSceneUI.h" />
     <ClInclude Include="JoinScene.h" />
     <ClInclude Include="NetworkManager.h" />
@@ -260,6 +261,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="JoinScene.cpp" />
+    <ClCompile Include="LobbySceneUI.cpp" />
     <ClCompile Include="TextInput.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="stb_image\stb_image.cpp" />

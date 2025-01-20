@@ -96,7 +96,12 @@
     <ClCompile Include="JoinScene.cpp">
       <Filter>Levels\Join</Filter>
     </ClCompile>
-    <ClCompile Include="JoinSceneUI.cpp" />
+    <ClCompile Include="JoinSceneUI.cpp">
+      <Filter>Levels\Join</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbySceneUI.cpp">
+      <Filter>Levels\Lobby</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -216,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="JoinSceneUI.h">
       <Filter>Levels\Join</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbySceneUI.h">
+      <Filter>Levels\Lobby</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

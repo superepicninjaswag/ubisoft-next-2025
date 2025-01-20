@@ -37,6 +37,15 @@ void UI::ShutDown() {
 	uiEventQueue.clear();
 }
 
+Text* UI::GetTextByName(std::string name) {
+	for ( auto& text : texts ) {
+		if ( text.name == name ) {
+			return &text;
+		}
+	}
+	return nullptr;
+}
+
 TextInput* UI::GetInputByName( std::string name ) {
 	for ( auto& textInput : textInputs ) {
 		if ( textInput.name == name ) {

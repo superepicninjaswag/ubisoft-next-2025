@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "LobbyScene.h"
 #include "JoinScene.h"
+#include "NetworkManager.h"
 
 
 MainMenuUI::MainMenuUI() {
@@ -42,6 +43,7 @@ void MainMenuUI::OnUpdate() {
 	if ( !uiEventQueue.empty() ) {
 		for ( auto& event : uiEventQueue ) {
 			if (        event.uiElementName == "host" && event.eventType == EventType::Click ) {
+				NetworkManager::GetInstance().SetUpHost();
 				SceneManager::GetInstance().ChangeScene( std::make_unique<LobbyScene>() );
 			} else if ( event.uiElementName == "join" && event.eventType == EventType::Click) {
 				SceneManager::GetInstance().ChangeScene( std::make_unique<JoinScene>() );

@@ -30,5 +30,6 @@ public:
 	virtual void						OnUpdate() = 0;
 	void								ShutDown();
 
+	Text*								GetTextByName( std::string name );
 	TextInput*							GetInputByName( std::string name );
 };

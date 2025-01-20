@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "SceneManager.h"
 #include "JoinSceneUI.h"
-#include "MainMenuScene.h"
+#include "LobbyScene.h"
+#include "NetworkManager.h"
+
 
 JoinSceneUI::JoinSceneUI() {
 	// ip label
@@ -30,7 +32,7 @@ JoinSceneUI::JoinSceneUI() {
 	texts.back().position.y = 407.0f;
 
 	// port input
-	textInputs.emplace_back( 6, Vec2( 512.0f, 400.0f ) );
+	textInputs.emplace_back( 5, Vec2( 512.0f, 400.0f ) );
 	textInputs.back().name = "port";
 
 	// Join button
@@ -46,13 +48,23 @@ void JoinSceneUI::OnUpdate() {
 	if (!uiEventQueue.empty()) {
 		for (auto& event : uiEventQueue) {
 			if (event.uiElementName == "join" && event.eventType == EventType::Click) {
-				bool ip1 = GetInputByName( "ip1" )->IsNumeric();
-				bool ip2 = GetInputByName( "ip2" )->IsNumeric();
-				bool ip3 = GetInputByName( "ip3" )->IsNumeric();
-				bool ip4 = GetInputByName( "ip4" )->IsNumeric();
-				bool port = GetInputByName( "port" )->IsNumeric();
-				if ( ip1 && ip2 && ip3 && ip4 && port) {
-					SceneManager::GetInstance().ChangeScene(std::make_unique<MainMenuScene>());
+				TextInput* ip1 = GetInputByName("ip1");
+				TextInput* ip2 = GetInputByName("ip2");
+				TextInput* ip3 = GetInputByName("ip3");
+				TextInput* ip4 = GetInputByName("ip4");
+				TextInput* port = GetInputByName("port");
+
+				bool ip1IsNum = ip1->IsNumeric();
+				bool ip2IsNum = ip2->IsNumeric();
+				bool ip3IsNum = ip3->IsNumeric();
+				bool ip4IsNum = ip4->IsNumeric();
+				bool portIsNum = port->IsNumeric();
+
+				if ( ip1IsNum && ip2IsNum && ip3IsNum && ip4IsNum && portIsNum ) {
+					std::string serverIP = ip1->text + "." + ip2->text + "." + ip3->text + "." + ip4->text;
+					if ( NetworkManager::GetInstance().SetUpClient( serverIP, (u_short) std::stoi( port->text ) ) ) {
+						SceneManager::GetInstance().ChangeScene( std::make_unique<LobbyScene>() );
+					}
 				}
 			}
 		}
