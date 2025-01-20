@@ -31,6 +31,8 @@ public:
 	void					Update() override;
 	void					Render() override;
 
+	void					DrawShootDirection();
+
 	void					CreateBoundingBox();
 	void					CreateGameOver();
 	void					CreateLevelOne();

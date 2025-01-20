@@ -5,6 +5,7 @@
 
 
 std::vector<EntityID> circless;
+Text t;
 
 GameLevelScene::GameLevelScene( int level ) : sr( ecs ), pm( ecs ) {
 	currentLevel = level;
@@ -47,11 +48,19 @@ void GameLevelScene::Update() {
 
 	ui.Update();
 	pm.Update();
+
+	t.text = std::to_string( NetworkManager::GetInstance().myPlayerNumber );
 }
 
 void GameLevelScene::Render() {
 	sr.RenderShapes();
 	ui.Draw();
+
+	t.Draw();
+}
+
+void GameLevelScene::DrawShootDirection() {
+	int myPlayerNumber = 0;
 }
 
 void GameLevelScene::CreateBoundingBox() {

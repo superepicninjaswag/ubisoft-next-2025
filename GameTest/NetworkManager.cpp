@@ -26,9 +26,10 @@ void NetworkManager::SetUpHost() {
 		myAddr.sin_port = htons( port + i );
 		if ( bind( mysocket, (sockaddr *) &myAddr, sizeof( myAddr ) ) == 0 ) {
 			isHost = true;
+			myPlayerNumber = 1;
 
 			char hostname[256];
-			if (gethostname(hostname, sizeof(hostname)) == SOCKET_ERROR) {
+			if ( gethostname(hostname, sizeof(hostname)) == SOCKET_ERROR ) {
 				Shutdown();
 				assert(false);
 			}
@@ -36,11 +37,11 @@ void NetworkManager::SetUpHost() {
 			struct addrinfo hints = { 0 }, * res;
 			hints.ai_family = AF_INET;
 
-			if (getaddrinfo(hostname, NULL, &hints, &res) == 0) {
-				for (struct addrinfo* p = res; p != NULL; p = p->ai_next) {
-					sockaddr_in* addr = (sockaddr_in*)p->ai_addr;
-					char ipStr[INET_ADDRSTRLEN];
-					inet_ntop(AF_INET, &addr->sin_addr, ipStr, sizeof(ipStr));
+			if ( getaddrinfo(hostname, NULL, &hints, &res) == 0 ) {
+				for ( struct addrinfo* p = res; p != NULL; p = p->ai_next ) {
+					sockaddr_in* addr = (sockaddr_in*) p->ai_addr;
+					char ipStr[ INET_ADDRSTRLEN ];
+					inet_ntop( AF_INET, &addr->sin_addr, ipStr, sizeof( ipStr ) );
 					bindedIP = ipStr;
 				}
 				freeaddrinfo(res);
@@ -208,15 +209,32 @@ void NetworkManager::ProcessPacket( char* data, int dataLength, sockaddr_in send
 void NetworkManager::HandleJoinRequest( char* payload, int payloadLength, sockaddr_in senderAddr ) {
 	std::string message( payload, payloadLength );
 	if ( message == JOINMESSAGE ) {
-		for ( Player &p : connectedPlayers ) {
-			if ( ( p.address.sin_addr.s_addr == senderAddr.sin_addr.s_addr ) && ( p.address.sin_port == senderAddr.sin_port ) ) {
-				return;			// Already connected;
+		if ( isHost ) {
+			for ( int i = 0; i < connectedPlayers.size(); i++ ) {
+				if ( ( connectedPlayers[ i ].address.sin_addr.s_addr == senderAddr.sin_addr.s_addr ) && ( connectedPlayers[ i ].address.sin_port == senderAddr.sin_port ) ) {
+					// Already connected, send confirmation back
+					int playerNumber = i + 2;
+					std::vector<char> buffer( sizeof( PacketHeader ) + std::to_string( playerNumber ).size() );
+					buffer[0] = PacketHeader::JOIN;
+					memcpy( buffer.data() + 1, std::to_string( playerNumber ).c_str(), std::to_string( playerNumber ).size() );
+					sendto( mysocket, buffer.data(), (int) buffer.size(), 0, (sockaddr*) &connectedPlayers[i].address, sizeof( connectedPlayers[ i ].address ) );
+					return;
+				}
 			}
+			connectedPlayers.emplace_back( senderAddr, numConnectedPlayers++ );
+			updatesSinceLastHealthCheck.emplace_back( 0 );
+			currentLevel.emplace_back( 0 );
+
+			int playerNumber = connectedPlayers.back().playerNumber + 1;
+			std::vector<char> buffer( sizeof( PacketHeader ) + std::to_string( playerNumber ).size() );
+			buffer[0] = PacketHeader::JOIN;
+			memcpy( buffer.data() + 1, std::to_string( playerNumber ).c_str(), std::to_string( playerNumber ).size() );
+			sendto( mysocket, buffer.data(), (int) buffer.size(), 0, (sockaddr*) &connectedPlayers.back().address, sizeof( connectedPlayers.back().address ) );
+			return;
 		}
-		connectedPlayers.emplace_back( senderAddr, numConnectedPlayers++ );
-		updatesSinceLastHealthCheck.emplace_back( 0 );
-		currentLevel.emplace_back( 0 );
-		// Send confirmation back to original sender
+	} else if ( ! isHost ) {
+		myPlayerNumber = std::stoi( message );
+		connected = 0;
 	}
 }
 
@@ -262,7 +280,7 @@ void NetworkManager::HandleHealthCheck(char* payload, int payloadLength, sockadd
 					updatesSinceLastHealthCheck[i] = 0;
 				}
 			}
-		} else {
+		} else if ( ! isHost && connected != -1 ) {
 			connected = 0;
 		}
 	}

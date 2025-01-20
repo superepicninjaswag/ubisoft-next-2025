@@ -52,6 +52,7 @@ public:
 	std::vector<int>				currentLevel;					// Which level does every player have loaded
 	int								myLevel;						// Which level do I have loaded
 	int								numConnectedPlayers = 1;		// When hosting, the host is "connected" thus 1 player by default
+	int								myPlayerNumber = 0;
 
 	void							SetUpHost();
 	bool							SetUpClient( const std::string& serverIP, u_short serverPort );
