@@ -52,7 +52,7 @@ void LobbySceneUI::OnUpdate() {
 	if ( !uiEventQueue.empty() ) {
 		for ( auto& event : uiEventQueue ) {
 			if ( event.uiElementName == "start" && event.eventType == EventType::Click ) {
-				SceneManager::GetInstance().ChangeScene( std::make_unique<GameLevelScene>() );
+				SceneManager::GetInstance().ChangeScene( std::make_unique<GameLevelScene>( 1 ) );
 			}
 		}
 		uiEventQueue.clear();

@@ -207,6 +207,7 @@
     <ClInclude Include="DevSandboxUI.h" />
     <ClInclude Include="ComponentPoolBase.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="GameLevelManager.h" />
     <ClInclude Include="GameLevelScene.h" />
     <ClInclude Include="GameLevelUI.h" />
     <ClInclude Include="LobbySceneUI.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="App\SimpleSound.cpp" />
     <ClCompile Include="App\SimpleSprite.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="GameLevelManager.cpp" />
     <ClCompile Include="GameLevelUI.cpp" />
     <ClCompile Include="JoinSceneUI.cpp" />
     <ClCompile Include="PlayItAsItLies.cpp" />
