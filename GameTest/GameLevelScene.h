@@ -19,9 +19,9 @@ public:
 	PhysicsManager			pm;
 
 	// Game level related
-
+	int						currentLevel;
 	int						strokeCount = 0;	
-	int						playerCount;
+	int						playerCount = 0;
 	std::vector<Vec2>		shootDirections;
 
 							GameLevelScene( int level );

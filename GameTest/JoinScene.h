@@ -8,7 +8,6 @@
 
 class JoinScene : public Scene {
 public:
-	ECS						ecs;
 	JoinSceneUI				ui;
 
 							JoinScene();

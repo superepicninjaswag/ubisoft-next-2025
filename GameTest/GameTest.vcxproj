@@ -203,8 +203,6 @@
     <ClInclude Include="EntityID.h" />
     <ClInclude Include="ComponentPool.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="DevSandboxScene.h" />
-    <ClInclude Include="DevSandboxUI.h" />
     <ClInclude Include="ComponentPoolBase.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="GameLevelScene.h" />
@@ -247,8 +245,6 @@
     <ClCompile Include="JoinSceneUI.cpp" />
     <ClCompile Include="PlayItAsItLies.cpp" />
     <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="DevSandboxScene.cpp" />
-    <ClCompile Include="DevSandboxUI.cpp" />
     <ClCompile Include="ECS.cpp" />
     <ClCompile Include="EntityID.cpp" />
     <ClCompile Include="IDManager.cpp" />

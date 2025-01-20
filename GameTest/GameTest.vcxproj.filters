@@ -72,12 +72,6 @@
     <ClCompile Include="UIEvent.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="DevSandboxScene.cpp">
-      <Filter>Levels\DevSandbox</Filter>
-    </ClCompile>
-    <ClCompile Include="DevSandboxUI.cpp">
-      <Filter>Levels\DevSandbox</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicsBodyComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -198,12 +192,6 @@
     <ClInclude Include="UIEvent.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="DevSandboxScene.h">
-      <Filter>Levels\DevSandbox</Filter>
-    </ClInclude>
-    <ClInclude Include="DevSandboxUI.h">
-      <Filter>Levels\DevSandbox</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentPoolBase.h">
       <Filter>ECS</Filter>
     </ClInclude>
@@ -283,9 +271,6 @@
     </Filter>
     <Filter Include="InputManager">
       <UniqueIdentifier>{93d8801d-c683-40e5-a190-ebaaee46fb16}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Levels\DevSandbox">
-      <UniqueIdentifier>{96e707b4-f3b2-4a1e-9b3d-c8f232f0655d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Levels\Lobby">
       <UniqueIdentifier>{e82776fb-2210-4827-9fdd-82b52de8837d}</UniqueIdentifier>

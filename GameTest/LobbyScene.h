@@ -8,7 +8,6 @@
 
 class LobbyScene : public Scene {
 public:
-	ECS						ecs;
 	LobbySceneUI			ui;
 
 							LobbyScene();

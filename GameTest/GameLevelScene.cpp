@@ -7,6 +7,13 @@
 std::vector<EntityID> circless;
 
 GameLevelScene::GameLevelScene( int level ) : sr( ecs ), pm( ecs ) {
+	currentLevel = level;
+	NetworkManager::GetInstance().myLevel = currentLevel;
+}
+
+void GameLevelScene::Load() {
+	ecs.Init();
+
 	// Player details
 	playerCount = NetworkManager::GetInstance().numConnectedPlayers;
 	for (int i = 0; i < playerCount; i++) {
@@ -14,20 +21,19 @@ GameLevelScene::GameLevelScene( int level ) : sr( ecs ), pm( ecs ) {
 	}
 
 	// Create level
-	if ( level == 1 ) {
+	if ( currentLevel == 1 ) {
 		CreateBoundingBox();
 		CreateLevelOne();
-	} else if ( level == 2 ) {
+	} else if ( currentLevel == 2 ) {
 
-	} else if ( level == 3 ) {
+	} else if ( currentLevel == 3 ) {
 
 	} else {
 		CreateGameOver();
 	}
-}
 
-void GameLevelScene::Load() {
-	ecs.Init();
+	// Network info
+	NetworkManager::GetInstance().myLevel = currentLevel;
 }
 
 void GameLevelScene::Unload() {

@@ -147,6 +147,16 @@ void NetworkManager::UpdateGameLevelServer() {
 	if ( isHost ) {
 		CheckHealth();
 		SendHealthCheckServer();
+
+		// Tell players to change level
+		for ( int i = 0; i < currentLevel.size(); i++ ) {
+			if ( currentLevel[i] != myLevel ) {
+				std::vector<char> buffer( sizeof(PacketHeader) + std::to_string( myLevel ).size() );
+				buffer[0] = PacketHeader::LEVEL;
+				memcpy( buffer.data() + 1, std::to_string( myLevel ).c_str(), std::to_string(myLevel).size() );
+				sendto( mysocket, buffer.data(), (int) buffer.size(), 0, (sockaddr*) &connectedPlayers[i].address, sizeof( connectedPlayers[i].address ) );
+			}
+		}
 	}
 }
 
@@ -184,10 +194,13 @@ void NetworkManager::ProcessPacket( char* data, int dataLength, sockaddr_in send
 
 	switch ( packetType ) {
 		case PacketHeader::JOIN:
-			HandleJoinRequest( payload, dataLength - sizeof(PacketHeader), senderAddr );
+			HandleJoinRequest( payload, dataLength - sizeof( PacketHeader ), senderAddr );
 			break;
 		case PacketHeader::HEALTHCHECK:
-			HandleHealthCheck( payload, dataLength - sizeof(PacketHeader), senderAddr );
+			HandleHealthCheck( payload, dataLength - sizeof( PacketHeader ), senderAddr );
+			break;
+		case PacketHeader::LEVEL:
+			HandleLevelChange( payload, dataLength - sizeof( PacketHeader ), senderAddr );
 			break;
 	}
 }
@@ -202,6 +215,7 @@ void NetworkManager::HandleJoinRequest( char* payload, int payloadLength, sockad
 		}
 		connectedPlayers.emplace_back( senderAddr, numConnectedPlayers++ );
 		updatesSinceLastHealthCheck.emplace_back( 0 );
+		currentLevel.emplace_back( 0 );
 		// Send confirmation back to original sender
 	}
 }
@@ -217,6 +231,9 @@ void NetworkManager::CheckHealth() {
 				std::swap( updatesSinceLastHealthCheck[ i ], updatesSinceLastHealthCheck[ j ] );
 				updatesSinceLastHealthCheck.pop_back();
 
+				std::swap( currentLevel[ i ], currentLevel[ j ] );
+				currentLevel.pop_back();
+
 				j--;
 			}
 			else {
@@ -228,6 +245,7 @@ void NetworkManager::CheckHealth() {
 		if ( connected > 200 ) {
 			connected = -1;
 			ResetSocket();
+			myLevel = -1;
 			SceneManager::GetInstance().ChangeScene( std::make_unique<MainMenuScene>() );
 		} else {
 			connected++;
@@ -246,6 +264,16 @@ void NetworkManager::HandleHealthCheck(char* payload, int payloadLength, sockadd
 			}
 		} else {
 			connected = 0;
+		}
+	}
+}
+
+void NetworkManager::HandleLevelChange(char* payload, int payloadLength, sockaddr_in senderAddr) {
+	std::string message(payload, payloadLength);
+	if ( ! isHost ) {
+		int desiredLevel = std::stoi( message );
+		if ( desiredLevel != myLevel && myLevel != -1 ) {
+			SceneManager::GetInstance().ChangeScene( std::make_unique<GameLevelScene>( desiredLevel ) );
 		}
 	}
 }

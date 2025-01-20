@@ -3,6 +3,7 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <vector>
+#include "GameLevelScene.h"
 
 
 const std::string JOINMESSAGE = "JOIN REQUEST";
@@ -38,19 +39,19 @@ public:
 	WSADATA							wsaData;
 	SOCKET							mysocket = INVALID_SOCKET;
 	sockaddr_in						myAddr;
-	u_short							port = 60140;			// GOLF0, port to open server socket on
+	u_short							port = 60140;					// GOLF0, port to open server socket on
 	std::string						bindedIP;
 
-	u_long							mode = 1;				// Enable non-blocking mode
+	u_long							mode = 1;						// Enable non-blocking mode
 
 	bool							isHost = false;
-	int								connected = -200;		// Used by client to tell if they are connected
+	int								connected = -200;				// Used by client to tell if they are connected
 
 	std::vector<Player>				connectedPlayers;
 	std::vector<int>				updatesSinceLastHealthCheck;
-	std::vector<int>				currentLevel;
-	int								myLevel;
-	int								numConnectedPlayers = 1;	// When hosting, the host is "connected"
+	std::vector<int>				currentLevel;					// Which level does every player have loaded
+	int								myLevel;						// Which level do I have loaded
+	int								numConnectedPlayers = 1;		// When hosting, the host is "connected" thus 1 player by default
 
 	void							SetUpHost();
 	bool							SetUpClient( const std::string& serverIP, u_short serverPort );
@@ -74,6 +75,8 @@ public:
 
 	void							CheckHealth();
 	void							HandleHealthCheck( char* payload, int payloadLength, sockaddr_in senderAddr );
+
+	void							HandleLevelChange( char* payload, int payloadLength, sockaddr_in senderAddr );
 
 private:
 									NetworkManager();
