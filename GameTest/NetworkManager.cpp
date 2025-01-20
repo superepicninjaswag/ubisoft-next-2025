@@ -117,8 +117,8 @@ void NetworkManager::ReceivePackets() {
 				// no more packets
 				return;
 			} else {
-				Shutdown();
-				assert( false );
+				// Duct tape solution. If host exits their game then client's game is also exited :D
+				glutLeaveMainLoop();
 			}
 		}
 
