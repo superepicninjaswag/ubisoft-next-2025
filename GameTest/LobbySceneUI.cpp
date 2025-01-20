@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "LobbySceneUI.h"
 #include "NetworkManager.h"
+#include "SceneManager.h"
+#include "GameLevelScene.h"
 
 
 LobbySceneUI::LobbySceneUI() {
@@ -45,5 +47,14 @@ void LobbySceneUI::OnUpdate() {
 	Text* connectedText = GetTextByName("connected");
 	if ( connectedText ) {
 		connectedText->text = "Number of players: " + std::to_string(NetworkManager::GetInstance().numConnectedPlayers);
+	}
+
+	if ( !uiEventQueue.empty() ) {
+		for ( auto& event : uiEventQueue ) {
+			if ( event.uiElementName == "start" && event.eventType == EventType::Click ) {
+				SceneManager::GetInstance().ChangeScene( std::make_unique<GameLevelScene>() );
+			}
+		}
+		uiEventQueue.clear();
 	}
 }

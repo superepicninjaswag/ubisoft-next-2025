@@ -102,6 +102,12 @@
     <ClCompile Include="LobbySceneUI.cpp">
       <Filter>Levels\Lobby</Filter>
     </ClCompile>
+    <ClCompile Include="GameLevelScene.cpp">
+      <Filter>Levels\GameLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevelUI.cpp">
+      <Filter>Levels\GameLevel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -225,6 +231,12 @@
     <ClInclude Include="LobbySceneUI.h">
       <Filter>Levels\Lobby</Filter>
     </ClInclude>
+    <ClInclude Include="GameLevelScene.h">
+      <Filter>Levels\GameLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevelUI.h">
+      <Filter>Levels\GameLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -283,6 +295,9 @@
     </Filter>
     <Filter Include="Levels\Join">
       <UniqueIdentifier>{c8050ba2-510e-47ca-8600-4c0c6cc8eb09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Levels\GameLevel">
+      <UniqueIdentifier>{eee0cc0c-b42a-4093-a191-91ae1f6e0daf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

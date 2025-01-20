@@ -2,16 +2,16 @@
 
 #include "ECS.h"
 #include "Scene.h"
-#include "LobbySceneUI.h"
+#include "GameLevelUI.h"
 
 
 
-class LobbyScene : public Scene {
+class GameLevelScene : public Scene {
 public:
 	ECS						ecs;
-	LobbySceneUI			ui;
+	GameLeveleUI			ui;
 
-							LobbyScene();
+							GameLevelScene();
 
 	void					Load() override;
 	void					Unload() override;
