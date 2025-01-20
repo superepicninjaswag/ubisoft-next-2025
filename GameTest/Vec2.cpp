@@ -38,8 +38,9 @@ Vec2 Vec2::Scale( const float a, const float b ) {
 }
 
 void Vec2::Normalize() {
-	x /= Length();
-	y /= Length();
+	float length = Length();
+	x /= length;
+	y /= length;
 }
 
 void Vec2::Zero() {
@@ -48,7 +49,7 @@ void Vec2::Zero() {
 }
 
 float Vec2::Length() {
-	return std::sqrtf(x * x + y * y);
+	return std::sqrtf( x * x + y * y );
 }
 
 float Vec2::DotProduct(const Vec2& a) {

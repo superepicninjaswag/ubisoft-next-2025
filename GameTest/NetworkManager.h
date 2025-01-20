@@ -11,9 +11,7 @@ const std::string HEALTHCHECKMESSAGE = "IM ALIVE";
 enum PacketHeader : uint8_t {
 	JOIN = 1,
 	HEALTHCHECK,
-	START,
-	NEXTTURN,
-	GAMEOVER
+	LEVEL
 };
 
 struct Player {
@@ -50,6 +48,8 @@ public:
 
 	std::vector<Player>				connectedPlayers;
 	std::vector<int>				updatesSinceLastHealthCheck;
+	std::vector<int>				currentLevel;
+	int								myLevel;
 	int								numConnectedPlayers = 1;	// When hosting, the host is "connected"
 
 	void							SetUpHost();

@@ -175,6 +175,9 @@ void PhysicsManager::Integrate() {
 
 			if (body.inverseMass > 0.0f) {
 				// Update position based on current velocity
+				if ( body.velocity.Length() < 2.0f ) {
+					body.SetVelocity( Vec2( 0.0f, 0.0f ) );
+				}
 				transform.position += body.velocity.Scale( timeStep );
 
 				// Calculate new acceleration based on forces currently acting on body

@@ -4,7 +4,6 @@
 #include "NetworkManager.h"
 
 
-
 std::vector<EntityID> circless;
 
 GameLevelScene::GameLevelScene( int level ) : sr( ecs ), pm( ecs ) {
@@ -38,11 +37,14 @@ void GameLevelScene::Update() {
 	ui.Update();
 	pm.Update();
 
-	if (InputManager::GetInstance().GetKeyState(VK_LBUTTON) == KeyState::Pressed) {
-		Vec2 ballPos = ecs.GetPool<TransformComponent>()->Get(circless[0])->position;
-		Vec2 target = InputManager::GetInstance().currentMousePosition;
 
-		ecs.GetPool<PhysicsBodyComponent>()->Get(circless[0])->AddForce((target - ballPos).Scale(5000.f));
+
+	Vec2 ballPos = ecs.GetPool<TransformComponent>()->Get(circless[0])->position;
+	Vec2 target = InputManager::GetInstance().currentMousePosition;
+	Vec2 forceDir = target - ballPos;
+	forceDir.Normalize();
+	if (InputManager::GetInstance().GetKeyState(VK_LBUTTON) == KeyState::Pressed) {
+		ecs.GetPool<PhysicsBodyComponent>()->Get(circless[0])->AddForce( forceDir.Scale( 2000000.f ) );
 	}
 }
 
@@ -52,7 +54,6 @@ void GameLevelScene::Render() {
 }
 
 void GameLevelScene::CreateBoundingBox() {
-	// Bounding lines
 	EntityID bottom = ecs.idManager.GetNewId();
 	ecs.GetPool<TransformComponent>()->Add( bottom );
 	ecs.GetPool<TransformComponent>()->Get( bottom )->position.Set(0, 0);
