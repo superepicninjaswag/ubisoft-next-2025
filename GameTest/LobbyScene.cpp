@@ -17,6 +17,7 @@ void LobbyScene::Unload() {
 void LobbyScene::Update() {
 	NetworkManager::GetInstance().ReceivePackets();
 	NetworkManager::GetInstance().UpdateLobbyClient();
+	NetworkManager::GetInstance().UpdateLobbyServer();
 
 	ui.Update();
 }

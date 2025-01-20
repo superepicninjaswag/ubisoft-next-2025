@@ -5,8 +5,15 @@
 #include <vector>
 
 
+const std::string JOINMESSAGE = "JOIN REQUEST";
+const std::string HEALTHCHECKMESSAGE = "IM ALIVE";
+
 enum PacketHeader : uint8_t {
-	JOIN = 1
+	JOIN = 1,
+	HEALTHCHECK,
+	START,
+	NEXTTURN,
+	GAMEOVER
 };
 
 struct Player {
@@ -39,11 +46,10 @@ public:
 	u_long							mode = 1;				// Enable non-blocking mode
 
 	bool							isHost = false;
-	bool							connected = false;		// Used by client to tell if they are connected
-
-	const std::string				JOINMESSAGE = "JOIN REQUEST";
+	int								connected = -200;		// Used by client to tell if they are connected
 
 	std::vector<Player>				connectedPlayers;
+	std::vector<int>				updatesSinceLastHealthCheck;
 	int								numConnectedPlayers = 1;	// When hosting, the host is "connected"
 
 	void							SetUpHost();
@@ -53,11 +59,15 @@ public:
 	static NetworkManager&			GetInstance();
 
 	void							UpdateLobbyClient();
+	void							UpdateLobbyServer();
 
 	void							ReceivePackets();
 	void							ProcessPacket( char* data, int dataLength, sockaddr_in senderAddr );
 
 	void							HandleJoinRequest( char* payload, int payloadLength, sockaddr_in senderAddr );
+
+	void							CheckHealth();
+	void							HandleHealthCheck( char* payload, int payloadLength, sockaddr_in senderAddr );
 
 private:
 									NetworkManager();

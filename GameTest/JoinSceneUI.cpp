@@ -15,15 +15,19 @@ JoinSceneUI::JoinSceneUI() {
 	// ip input
 	textInputs.emplace_back( 3, Vec2( 512.0f, 500.0f ) );
 	textInputs.back().name = "ip1";
+	textInputs.back().text = "192";
 
 	textInputs.emplace_back( 3, Vec2( 562.0f, 500.0f ) );
 	textInputs.back().name = "ip2";
+	textInputs.back().text = "168";
 
 	textInputs.emplace_back( 3, Vec2( 612.0f, 500.0f ) );
 	textInputs.back().name = "ip3";
+	textInputs.back().text = "117";
 
 	textInputs.emplace_back( 3, Vec2( 662.0f, 500.0f ) );
 	textInputs.back().name = "ip4";
+	textInputs.back().text = "1";
 
 	// port label
 	texts.emplace_back();
@@ -34,6 +38,7 @@ JoinSceneUI::JoinSceneUI() {
 	// port input
 	textInputs.emplace_back( 5, Vec2( 512.0f, 400.0f ) );
 	textInputs.back().name = "port";
+	textInputs.back().text = "60140";
 
 	// Join button
 	buttons.emplace_back();
