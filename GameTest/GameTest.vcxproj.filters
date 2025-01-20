@@ -108,9 +108,6 @@
     <ClCompile Include="GameLevelUI.cpp">
       <Filter>Levels\GameLevel</Filter>
     </ClCompile>
-    <ClCompile Include="GameLevelManager.cpp">
-      <Filter>Levels\GameLevel</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -238,9 +235,6 @@
       <Filter>Levels\GameLevel</Filter>
     </ClInclude>
     <ClInclude Include="GameLevelUI.h">
-      <Filter>Levels\GameLevel</Filter>
-    </ClInclude>
-    <ClInclude Include="GameLevelManager.h">
       <Filter>Levels\GameLevel</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,9 +7,14 @@
 std::vector<EntityID> circless;
 
 GameLevelScene::GameLevelScene( int level ) : sr( ecs ), pm( ecs ) {
-	if ( level == 0 ) {
-		CreateGameOver();
-	} else if ( level == 1 ) {
+	// Player details
+	playerCount = NetworkManager::GetInstance().numConnectedPlayers;
+	for (int i = 0; i < playerCount; i++) {
+		shootDirections.emplace_back(0.0f, 0.0f);
+	}
+
+	// Create level
+	if ( level == 1 ) {
 		CreateBoundingBox();
 		CreateLevelOne();
 	} else if ( level == 2 ) {
@@ -17,7 +22,7 @@ GameLevelScene::GameLevelScene( int level ) : sr( ecs ), pm( ecs ) {
 	} else if ( level == 3 ) {
 
 	} else {
-
+		CreateGameOver();
 	}
 }
 
@@ -31,21 +36,11 @@ void GameLevelScene::Unload() {
 
 void GameLevelScene::Update() {
 	NetworkManager::GetInstance().ReceivePackets();
-	NetworkManager::GetInstance().UpdateLobbyClient();
-	NetworkManager::GetInstance().UpdateLobbyServer();
+	NetworkManager::GetInstance().UpdateGameLevelClient();
+	NetworkManager::GetInstance().UpdateGameLevelServer();
 
 	ui.Update();
 	pm.Update();
-
-
-
-	Vec2 ballPos = ecs.GetPool<TransformComponent>()->Get(circless[0])->position;
-	Vec2 target = InputManager::GetInstance().currentMousePosition;
-	Vec2 forceDir = target - ballPos;
-	forceDir.Normalize();
-	if (InputManager::GetInstance().GetKeyState(VK_LBUTTON) == KeyState::Pressed) {
-		ecs.GetPool<PhysicsBodyComponent>()->Get(circless[0])->AddForce( forceDir.Scale( 2000000.f ) );
-	}
 }
 
 void GameLevelScene::Render() {

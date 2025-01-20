@@ -58,8 +58,14 @@ public:
 	void							Shutdown();
 	static NetworkManager&			GetInstance();
 
+	void							SendHealthCheckClient();
+	void							SendHealthCheckServer();
+
 	void							UpdateLobbyClient();
 	void							UpdateLobbyServer();
+
+	void							UpdateGameLevelClient();
+	void							UpdateGameLevelServer();
 
 	void							ReceivePackets();
 	void							ProcessPacket( char* data, int dataLength, sockaddr_in senderAddr );

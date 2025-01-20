@@ -94,6 +94,24 @@ NetworkManager& NetworkManager::GetInstance() {
 	return instance;
 }
 
+void NetworkManager::SendHealthCheckClient() {
+	// Tell host you're active
+	std::vector<char> buffer( sizeof( PacketHeader ) + HEALTHCHECKMESSAGE.size() );
+	buffer[ 0 ] = PacketHeader::HEALTHCHECK;
+	memcpy( buffer.data() + 1, HEALTHCHECKMESSAGE.c_str(), HEALTHCHECKMESSAGE.size() );
+	send( mysocket, buffer.data(), (int) buffer.size(), 0 );
+}
+
+void NetworkManager::SendHealthCheckServer() {
+		for ( Player &p : connectedPlayers ) {
+			// Tell players you're active
+			std::vector<char> buffer( sizeof( PacketHeader ) + HEALTHCHECKMESSAGE.size() );
+			buffer[0] = PacketHeader::HEALTHCHECK;
+			memcpy( buffer.data() + 1, HEALTHCHECKMESSAGE.c_str(), HEALTHCHECKMESSAGE.size() );
+			sendto( mysocket, buffer.data(), (int) buffer.size(), 0, (sockaddr *) &p.address, sizeof( p.address ) );
+		}
+}
+
 void NetworkManager::UpdateLobbyClient() {
 	if ( ! isHost ) {
 		if ( connected < 0 ) {
@@ -103,11 +121,7 @@ void NetworkManager::UpdateLobbyClient() {
 			memcpy( buffer.data() + 1, JOINMESSAGE.c_str(), JOINMESSAGE.size() );
 			send( mysocket, buffer.data(), (int) buffer.size(), 0 );
 		} else {
-			// Tell host you're active
-			std::vector<char> buffer(sizeof( PacketHeader ) + HEALTHCHECKMESSAGE.size());
-			buffer[0] = PacketHeader::HEALTHCHECK;
-			memcpy( buffer.data() + 1, HEALTHCHECKMESSAGE.c_str(), HEALTHCHECKMESSAGE.size() );
-			send(mysocket, buffer.data(), (int) buffer.size(), 0);
+			SendHealthCheckClient();
 		}
 
 		CheckHealth();
@@ -117,13 +131,22 @@ void NetworkManager::UpdateLobbyClient() {
 void NetworkManager::UpdateLobbyServer() {
 	if ( isHost ) {
 		CheckHealth();
-		for ( Player &p : connectedPlayers ) {
-			// Tell players you're active
-			std::vector<char> buffer( sizeof( PacketHeader ) + HEALTHCHECKMESSAGE.size() );
-			buffer[0] = PacketHeader::HEALTHCHECK;
-			memcpy( buffer.data() + 1, HEALTHCHECKMESSAGE.c_str(), HEALTHCHECKMESSAGE.size() );
-			sendto( mysocket, buffer.data(), (int) buffer.size(), 0, (sockaddr *) &p.address, sizeof( p.address ) );
-		}
+		SendHealthCheckServer();
+	}
+}
+
+void NetworkManager::UpdateGameLevelClient() {
+	if ( ! isHost ) {
+		// Listen for ???
+		CheckHealth();
+		SendHealthCheckClient();
+	}
+}
+
+void NetworkManager::UpdateGameLevelServer() {
+	if ( isHost ) {
+		CheckHealth();
+		SendHealthCheckServer();
 	}
 }
 
@@ -146,11 +169,11 @@ void NetworkManager::ReceivePackets() {
 				return;
 			} else {
 				// Duct tape solution. If host exits their game then client's game is also exited :D
-				glutLeaveMainLoop();
+				// glutLeaveMainLoop();
 			}
+		} else if ( bytesReceived > 0 ) {
+			ProcessPacket(recvBuffer, bytesReceived, senderAddr);
 		}
-
-		ProcessPacket( recvBuffer, bytesReceived, senderAddr );
 	}
 }
 
