@@ -16,6 +16,8 @@ GameLevelScene::GameLevelScene( int level ) : sr( ecs ), pm( ecs ) {
 
 void GameLevelScene::Load() {
 	ecs.Init();
+	NetworkManager::GetInstance().ecs = &ecs;
+	NetworkManager::GetInstance().playerGolfBalls = &playerGolfBalls;
 
 	playerNumIndicator.position = Vec2( 780.0f, 700.0f );
 
@@ -50,6 +52,32 @@ void GameLevelScene::Update() {
 	pm.Update();
 
 	playerNumIndicator.text = "You are player " + std::to_string(NetworkManager::GetInstance().myPlayerNumber);
+
+	// Shoot
+	if ( NetworkManager::GetInstance().isHost ) {
+		Vec2 ballPos = ecs.GetPool<TransformComponent>()->Get(playerGolfBalls[0])->position;
+		Vec2 target = InputManager::GetInstance().currentMousePosition;
+		Vec2 forceDir = target - ballPos;
+		forceDir.Normalize();
+		if (InputManager::GetInstance().GetKeyState(VK_LBUTTON) == KeyState::Pressed) {
+			ecs.GetPool<PhysicsBodyComponent>()->Get(playerGolfBalls[0])->AddForce(forceDir.Scale(2000000.f));
+		}
+
+		// Send updated position to clients
+		for ( int i = 0; i < playerGolfBalls.size(); i++ ) {
+			NetworkManager &nm = NetworkManager::GetInstance();
+			ComponentPool<TransformComponent> &transforms = *ecs.GetPool<TransformComponent>();
+			Vec2 pos = transforms.Get( playerGolfBalls[ i ] )->position;
+
+			std::string data = std::to_string( pos.x ) + "," + std::to_string( pos.y ) + "," + std::to_string( i );
+			std::vector<char> buffer( sizeof( PacketHeader ) + data.size() );
+			buffer[0] = PacketHeader::POSITION;
+			memcpy( buffer.data() + 1, data.c_str(), data.size() );
+			for ( int j = 0; j < nm.connectedPlayers.size(); j++ ) {
+				sendto(nm.mysocket, buffer.data(), (int)buffer.size(), 0, (sockaddr*)&nm.connectedPlayers[ j ].address, sizeof(nm.connectedPlayers[ j ].address));
+			}
+		}
+	}
 }
 
 void GameLevelScene::Render() {
@@ -59,7 +87,7 @@ void GameLevelScene::Render() {
 	playerNumIndicator.Draw();	// Player # indicator
 
 	for ( int i = 0; i < playerGolfBalls.size(); i++ ) {
-		Vec2 pos = ecs.GetPool<TransformComponent>()->Get( playerGolfBalls[ i ])->position;
+		Vec2 pos = ecs.GetPool<TransformComponent>()->Get( playerGolfBalls[ i ] )->position;
 		playerLabels[ i ].position = pos;
 		playerLabels[ i ].Draw();
 	}

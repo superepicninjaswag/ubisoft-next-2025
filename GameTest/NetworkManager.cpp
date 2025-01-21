@@ -205,6 +205,9 @@ void NetworkManager::ProcessPacket( char* data, int dataLength, sockaddr_in send
 		case PacketHeader::LEVEL:
 			HandleLevelChange( payload, dataLength - sizeof( PacketHeader ), senderAddr );
 			break;
+		case PacketHeader::POSITION:
+			HandlePositionChange(payload, dataLength - sizeof(PacketHeader), senderAddr);
+			break;
 	}
 }
 
@@ -300,5 +303,23 @@ void NetworkManager::HandleLevelChange(char* payload, int payloadLength, sockadd
 			NetworkManager::GetInstance().numConnectedPlayers = std::stoi( playerCount );
 			SceneManager::GetInstance().ChangeScene( std::make_unique<GameLevelScene>( level ) );
 		}
+	}
+}
+
+void NetworkManager::HandlePositionChange(char* payload, int payloadLength, sockaddr_in senderAddr) {
+	std::string message(payload, payloadLength);
+	std::stringstream ss(message);
+	std::string x, y, i;
+	std::getline(ss, x, ',');
+	std::getline(ss, y, ',');
+	std::getline(ss, i, ',');
+	if ( ! isHost ) {
+		float xf = std::stof( x );
+		float yf = std::stof( y );
+		int ii = std::stof( i );
+		
+		EntityID e = (*playerGolfBalls)[ ii ];
+		(*ecs).GetPool<TransformComponent>()->Get( e )->position.x = xf;
+		(*ecs).GetPool<TransformComponent>()->Get( e )->position.y = yf;
 	}
 }

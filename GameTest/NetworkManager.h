@@ -12,7 +12,8 @@ const std::string HEALTHCHECKMESSAGE = "IM ALIVE";
 enum PacketHeader : uint8_t {
 	JOIN = 1,
 	HEALTHCHECK,
-	LEVEL
+	LEVEL,
+	POSITION
 };
 
 struct Player {
@@ -36,6 +37,10 @@ struct JoinPacket {
 */
 class NetworkManager {
 public:
+	// Last minute duct tape
+	ECS*							ecs;
+	std::vector<EntityID>*			playerGolfBalls;
+
 	WSADATA							wsaData;
 	SOCKET							mysocket = INVALID_SOCKET;
 	sockaddr_in						myAddr;
@@ -78,6 +83,8 @@ public:
 	void							HandleHealthCheck( char* payload, int payloadLength, sockaddr_in senderAddr );
 
 	void							HandleLevelChange( char* payload, int payloadLength, sockaddr_in senderAddr );
+
+	void							HandlePositionChange( char* payload, int payloadLength, sockaddr_in senderAddr );
 
 private:
 									NetworkManager();

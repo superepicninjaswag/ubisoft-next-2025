@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "PhysicsManager.h"
-
+#include "NetworkManager.h"
 
 /*
 * Comments are a little excessive here because it makes it easier for me to
