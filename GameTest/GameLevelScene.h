@@ -33,6 +33,7 @@ public:
 
 	void					DrawShootDirection();
 
+	void					SpawnPlayer();
 	void					CreateBoundingBox();
 	void					CreateGameOver();
 	void					CreateLevelOne();

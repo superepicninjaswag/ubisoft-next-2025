@@ -4,8 +4,10 @@
 #include "NetworkManager.h"
 
 
-std::vector<EntityID> circless;
-Text t;
+std::vector<EntityID> playerGolfBalls;
+std::vector<Text> playerLabels;
+
+Text playerNumIndicator;
 
 GameLevelScene::GameLevelScene( int level ) : sr( ecs ), pm( ecs ) {
 	currentLevel = level;
@@ -14,6 +16,8 @@ GameLevelScene::GameLevelScene( int level ) : sr( ecs ), pm( ecs ) {
 
 void GameLevelScene::Load() {
 	ecs.Init();
+
+	playerNumIndicator.position = Vec2( 780.0f, 700.0f );
 
 	// Player details
 	playerCount = NetworkManager::GetInstance().numConnectedPlayers;
@@ -25,10 +29,6 @@ void GameLevelScene::Load() {
 	if ( currentLevel == 1 ) {
 		CreateBoundingBox();
 		CreateLevelOne();
-	} else if ( currentLevel == 2 ) {
-
-	} else if ( currentLevel == 3 ) {
-
 	} else {
 		CreateGameOver();
 	}
@@ -49,18 +49,40 @@ void GameLevelScene::Update() {
 	ui.Update();
 	pm.Update();
 
-	t.text = std::to_string( NetworkManager::GetInstance().myPlayerNumber );
+	playerNumIndicator.text = "You are player " + std::to_string(NetworkManager::GetInstance().myPlayerNumber);
 }
 
 void GameLevelScene::Render() {
 	sr.RenderShapes();
 	ui.Draw();
 
-	t.Draw();
+	playerNumIndicator.Draw();	// Player # indicator
+
+	for ( int i = 0; i < playerGolfBalls.size(); i++ ) {
+		Vec2 pos = ecs.GetPool<TransformComponent>()->Get( playerGolfBalls[ i ])->position;
+		playerLabels[ i ].position = pos;
+		playerLabels[ i ].Draw();
+	}
 }
 
 void GameLevelScene::DrawShootDirection() {
 	int myPlayerNumber = 0;
+}
+
+void GameLevelScene::SpawnPlayer() {
+	playerGolfBalls.push_back( ecs.idManager.GetNewId() );
+	EntityID id = playerGolfBalls.back();
+	playerLabels.emplace_back();
+	playerLabels.back().text = std::to_string( playerGolfBalls.size() );
+
+	ecs.GetPool<TransformComponent>()->Add( id );
+	ecs.GetPool<TransformComponent>()->Get( id )->position.Set( 500, 500 );
+
+	ecs.GetPool<ShapeComponent>()->Add( id, 20.0f );
+
+	ecs.GetPool<PhysicsBodyComponent>()->Add( id );
+	ecs.GetPool<PhysicsBodyComponent>()->Get( id )->damping = 0.3f;
+	ecs.GetPool<PhysicsBodyComponent>()->Get( id )->SetMass( 20.0f );
 }
 
 void GameLevelScene::CreateBoundingBox() {
@@ -100,27 +122,7 @@ void GameLevelScene::CreateGameOver() {
 }
 
 void GameLevelScene::CreateLevelOne() {
-	// Test circle
-	circless.push_back(ecs.idManager.GetNewId());
-
-	ecs.GetPool<TransformComponent>()->Add(circless.back());
-	ecs.GetPool<TransformComponent>()->Get(circless.back())->position.Set(500, 500);
-
-	ecs.GetPool<ShapeComponent>()->Add(circless.back(), 20.0f);
-
-	ecs.GetPool<PhysicsBodyComponent>()->Add(circless.back());
-	ecs.GetPool<PhysicsBodyComponent>()->Get(circless.back())->damping = 0.3f;
-	ecs.GetPool<PhysicsBodyComponent>()->Get(circless.back())->SetMass(20.0f);
-
-	// Test circle
-	circless.push_back(ecs.idManager.GetNewId());
-
-	ecs.GetPool<TransformComponent>()->Add(circless.back());
-	ecs.GetPool<TransformComponent>()->Get(circless.back())->position.Set(500, 500);
-
-	ecs.GetPool<ShapeComponent>()->Add(circless.back(), 20.0f);
-
-	ecs.GetPool<PhysicsBodyComponent>()->Add(circless.back());
-	ecs.GetPool<PhysicsBodyComponent>()->Get(circless.back())->damping = 0.3f;
-	ecs.GetPool<PhysicsBodyComponent>()->Get(circless.back())->SetMass(20.0f);
+	for ( int i = 0; i < NetworkManager::GetInstance().numConnectedPlayers; i++ ) {
+		SpawnPlayer();
+	}
 }

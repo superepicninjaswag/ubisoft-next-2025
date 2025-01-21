@@ -4,6 +4,7 @@
 #include "SceneManager.h"
 #include "MainMenuScene.h"
 #include <assert.h>
+#include <sstream>
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -152,9 +153,10 @@ void NetworkManager::UpdateGameLevelServer() {
 		// Tell players to change level
 		for ( int i = 0; i < currentLevel.size(); i++ ) {
 			if ( currentLevel[i] != myLevel ) {
-				std::vector<char> buffer( sizeof(PacketHeader) + std::to_string( myLevel ).size() );
+				std::string data = std::to_string( myLevel ) + "," + std::to_string( numConnectedPlayers );
+				std::vector<char> buffer( sizeof( PacketHeader ) + data.size() );
 				buffer[0] = PacketHeader::LEVEL;
-				memcpy( buffer.data() + 1, std::to_string( myLevel ).c_str(), std::to_string(myLevel).size() );
+				memcpy( buffer.data() + 1, data.c_str(), data.size() );
 				sendto( mysocket, buffer.data(), (int) buffer.size(), 0, (sockaddr*) &connectedPlayers[i].address, sizeof( connectedPlayers[i].address ) );
 			}
 		}
@@ -240,7 +242,7 @@ void NetworkManager::HandleJoinRequest( char* payload, int payloadLength, sockad
 
 void NetworkManager::CheckHealth() {
 	if ( isHost ) {
-		for ( int i = 0, j = connectedPlayers.size() - 1; i <= j && i < connectedPlayers.size(); ) {
+		for ( int i = 0, j = (int) connectedPlayers.size() - 1; i <= j && i < connectedPlayers.size(); ) {
 			if ( updatesSinceLastHealthCheck[i] > 200 ) {
 				std::swap( connectedPlayers[ i ], connectedPlayers[ j ] );
 				connectedPlayers.pop_back();
@@ -287,11 +289,16 @@ void NetworkManager::HandleHealthCheck(char* payload, int payloadLength, sockadd
 }
 
 void NetworkManager::HandleLevelChange(char* payload, int payloadLength, sockaddr_in senderAddr) {
-	std::string message(payload, payloadLength);
+	std::string message( payload, payloadLength );
+	std::stringstream ss( message );
+	std::string desiredLevel, playerCount;
+	std::getline( ss, desiredLevel, ',' );
+	std::getline( ss, playerCount,	',' );
 	if ( ! isHost ) {
-		int desiredLevel = std::stoi( message );
-		if ( desiredLevel != myLevel && myLevel != -1 ) {
-			SceneManager::GetInstance().ChangeScene( std::make_unique<GameLevelScene>( desiredLevel ) );
+		int level = std::stoi( desiredLevel );
+		if ( level != myLevel && myLevel != -1 ) {
+			NetworkManager::GetInstance().numConnectedPlayers = std::stoi( playerCount );
+			SceneManager::GetInstance().ChangeScene( std::make_unique<GameLevelScene>( level ) );
 		}
 	}
 }
