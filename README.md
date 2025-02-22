@@ -1,0 +1,9 @@
+My submission for the Ubisoft Toronto Next 2025 Programming Challenge :D
+
+Features
+* UI library
+* Input manager
+* Networked multiplayer (replication of host actions only :p)
+* Point-mass physics engine
+* ECS (components are pooled and managed with a sparse set)
+* Scene manager
